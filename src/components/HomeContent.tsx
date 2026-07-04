@@ -17,7 +17,7 @@ export default function HomeContent() {
               width={120}
               height={120}
               priority={true}
-              className="rounded"
+              className="rounded-full object-cover"
             />
           </div>
           <h1 className="mb-6 text-4xl font-bold leading-tight text-brand-dark-green md:text-5xl">
@@ -27,7 +27,7 @@ export default function HomeContent() {
             {t("home.heroSubtitle")}
           </p>
           <a
-            href="#"
+            href="/products"
             className="inline-block rounded bg-brand-orange px-8 py-3 text-lg font-semibold text-brand-cream transition-opacity hover:opacity-90"
           >
             {t("home.ctaButton")}

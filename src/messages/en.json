@@ -29,6 +29,12 @@
     "value3Title": "Nationwide Network",
     "value3Text": "With franchise partners across Pakistan, we make quality seeds and agricultural expertise accessible to every region."
   },
+  "products": {
+    "pageTitle": "Our Products",
+    "pageSubtitle": "Explore our range of premium certified seed varieties, carefully selected for Pakistan's diverse growing regions.",
+    "varietyLabel": "Variety",
+    "noImageText": "Image Coming Soon"
+  },
   "footer": {
     "companyName": "MRS Agro Chemicals",
     "phone": "+92XXXXXXXXXX",

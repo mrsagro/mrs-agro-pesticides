@@ -8,7 +8,7 @@ import { useTranslation } from "@/lib/useTranslation";
 const navItems: { key: string; href: string }[] = [
   { key: "home", href: "/" },
   { key: "about", href: "/about" },
-  { key: "products", href: "#" },
+  { key: "products", href: "/products" },
   { key: "franchise", href: "#" },
   { key: "contact", href: "#" },
 ];
@@ -28,7 +28,7 @@ export default function Header() {
               alt={t("nav.logoAlt")}
               width={56}
               height={56}
-              className="rounded"
+              className="rounded-full object-cover"
             />
           </a>
         </div>
