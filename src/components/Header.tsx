@@ -23,13 +23,15 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
         <div className="flex items-center gap-2">
           <a href="/">
-            <Image
-              src="/images/logo.jpeg"
-              alt={t("nav.logoAlt")}
-              width={56}
-              height={56}
-              className="rounded-full object-cover"
-            />
+            <div className="relative h-14 w-14 overflow-hidden rounded-full">
+              <Image
+                src="/images/logo.jpeg"
+                alt={t("nav.logoAlt")}
+                fill
+                className="object-cover"
+                sizes="56px"
+              />
+            </div>
           </a>
         </div>
 

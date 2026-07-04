@@ -11,14 +11,16 @@ export default function HomeContent() {
       <section className="bg-brand-cream px-4 py-20 text-center">
         <div className="mx-auto max-w-4xl">
           <div className="mx-auto mb-8 flex items-center justify-center">
-            <Image
-              src="/images/logo.jpeg"
-              alt={t("nav.logoAlt")}
-              width={120}
-              height={120}
-              priority={true}
-              className="rounded-full object-cover"
-            />
+            <div className="relative h-[120px] w-[120px] overflow-hidden rounded-full">
+              <Image
+                src="/images/logo.jpeg"
+                alt={t("nav.logoAlt")}
+                fill
+                className="object-cover"
+                sizes="120px"
+                priority
+              />
+            </div>
           </div>
           <h1 className="mb-6 text-4xl font-bold leading-tight text-brand-dark-green md:text-5xl">
             {t("home.heroTitle")}
