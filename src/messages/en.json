@@ -35,11 +35,40 @@
     "varietyLabel": "Variety",
     "noImageText": "Image Coming Soon"
   },
+  "franchise": {
+    "pageTitle": "Become a Franchise Partner",
+    "pageSubtitle": "Join MRS Agro Chemicals' growing network of dealers and shop owners across Pakistan. Partner with us to bring premium quality seeds to your local farming community.",
+    "benefitsHeading": "Why Partner With Us",
+    "benefit1": "Access to certified, high-yield seed varieties that farmers trust and demand, ensuring steady sales and repeat customers.",
+    "benefit2": "Comprehensive training, marketing materials, and ongoing support to help you grow your business confidently.",
+    "benefit3": "Become part of a respected brand with decades of agricultural expertise and a loyal customer base nationwide.",
+    "formHeading": "Apply for Franchise",
+    "formNameLabel": "Full Name",
+    "formPhoneLabel": "Phone Number",
+    "formCityLabel": "City",
+    "formMessageLabel": "Message (optional)",
+    "formSubmitButton": "Submit Application",
+    "formSuccessMessage": "Thank you! Your application has been sent. We'll contact you soon.",
+    "formErrorMessage": "Something went wrong. Please try again or contact us directly."
+  },
+  "contact": {
+    "pageTitle": "Contact Us",
+    "pageSubtitle": "We'd love to hear from you. Reach out through any of the channels below or send us a message directly.",
+    "phoneLabel": "Phone",
+    "whatsappLabel": "WhatsApp",
+    "emailLabel": "Email",
+    "addressLabel": "Address",
+    "formHeading": "Send Us a Message",
+    "formNameLabel": "Your Name",
+    "formEmailLabel": "Your Email",
+    "formMessageLabel": "Message",
+    "formSubmitButton": "Send Message",
+    "formSuccessMessage": "Message sent successfully! We'll get back to you soon.",
+    "formErrorMessage": "Failed to send message. Please try again or contact us directly using the details above."
+  },
   "footer": {
     "companyName": "MRS Agro Chemicals",
-    "phone": "+92XXXXXXXXXX",
     "whatsapp": "WhatsApp",
-    "email": "email@placeholder.com",
     "rights": "All rights reserved."
   }
 }

@@ -9,8 +9,8 @@ const navItems: { key: string; href: string }[] = [
   { key: "home", href: "/" },
   { key: "about", href: "/about" },
   { key: "products", href: "/products" },
-  { key: "franchise", href: "#" },
-  { key: "contact", href: "#" },
+  { key: "franchise", href: "/franchise" },
+  { key: "contact", href: "/contact" },
 ];
 
 export default function Header() {
