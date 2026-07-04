@@ -33,7 +33,9 @@
     "pageTitle": "Our Products",
     "pageSubtitle": "Explore our range of premium certified seed varieties, carefully selected for Pakistan's diverse growing regions.",
     "varietyLabel": "Variety",
-    "noImageText": "Image Coming Soon"
+    "noImageText": "Image Coming Soon",
+    "viewDetailsButton": "View Details",
+    "backToProducts": "← Back to Products"
   },
   "franchise": {
     "pageTitle": "Become a Franchise Partner",

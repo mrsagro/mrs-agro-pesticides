@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslation } from "@/lib/useTranslation";
 import type { Product } from "@/lib/products";
 
@@ -27,7 +28,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
       </div>
 
-      <div className="p-5">
+      <div className="flex flex-col p-5">
         <h3 className="mb-2 text-xl font-semibold text-brand-dark-green">
           {language === "en" ? product.nameEn : product.nameUr}
         </h3>
@@ -39,9 +40,16 @@ export default function ProductCard({ product }: { product: Product }) {
           {language === "en" ? product.varietyEn : product.varietyUr}
         </p>
 
-        <p className="text-sm leading-relaxed text-brand-charcoal/80">
+        <p className="mb-4 text-sm leading-relaxed text-brand-charcoal/80">
           {language === "en" ? product.descriptionEn : product.descriptionUr}
         </p>
+
+        <Link
+          href={`/products/${product.slug}`}
+          className="mt-auto inline-block self-start rounded bg-brand-orange px-5 py-2 text-sm font-medium text-brand-cream transition-colors hover:bg-brand-orange/90"
+        >
+          {t("products.viewDetailsButton")}
+        </Link>
       </div>
     </div>
   );
