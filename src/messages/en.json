@@ -6,7 +6,8 @@
     "franchise": "Franchise",
     "contact": "Contact",
     "toggleToUrdu": "اردو",
-    "toggleToEnglish": "English"
+    "toggleToEnglish": "English",
+    "logoAlt": "MRS Agro Chemicals Logo"
   },
   "home": {
     "heroTitle": "Growing Pakistan's Future, One Seed at a Time",
@@ -14,6 +15,19 @@
     "ctaButton": "Explore Our Products",
     "introHeading": "Why Choose MRS Agro Chemicals",
     "introText": "We are committed to delivering high-yield, disease-resistant seed varieties backed by agricultural expertise and a nationwide franchise network."
+  },
+  "about": {
+    "pageTitle": "About MRS Agro Chemicals",
+    "heading": "Our Story",
+    "paragraph1": "At MRS Agro Chemicals, we believe that the foundation of a bountiful harvest lies in the quality of the seed. For years, we have dedicated ourselves to supplying Pakistan's farmers with premium, high-yield seed varieties that they can trust season after season.",
+    "paragraph2": "Backed by decades of agricultural expertise and a deep understanding of Pakistan's diverse growing conditions, we work tirelessly to bring innovation to every field. Our commitment extends beyond seeds — we partner with farmers to ensure they get the support and guidance needed to thrive.",
+    "valuesHeading": "What We Stand For",
+    "value1Title": "Quality Assurance",
+    "value1Text": "Every seed we supply undergoes rigorous testing to ensure germination rates, disease resistance, and adaptability to local climates.",
+    "value2Title": "Farmer-First Approach",
+    "value2Text": "We prioritise the needs of the farmer, offering expert guidance and responsive support at every step of the growing season.",
+    "value3Title": "Nationwide Network",
+    "value3Text": "With franchise partners across Pakistan, we make quality seeds and agricultural expertise accessible to every region."
   },
   "footer": {
     "companyName": "MRS Agro Chemicals",

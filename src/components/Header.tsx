@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useTranslation } from "@/lib/useTranslation";
 
-const navKeys = ["home", "about", "products", "franchise", "contact"];
+const navItems: { key: string; href: string }[] = [
+  { key: "home", href: "/" },
+  { key: "about", href: "/about" },
+  { key: "products", href: "#" },
+  { key: "franchise", href: "#" },
+  { key: "contact", href: "#" },
+];
 
 export default function Header() {
   const { language, toggleLanguage } = useLanguage();
@@ -15,16 +22,22 @@ export default function Header() {
     <header className="bg-brand-dark-green text-brand-cream">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-10 w-16 items-center justify-center rounded bg-gray-400 text-sm font-bold text-white">
-            LOGO
-          </div>
+          <a href="/">
+            <Image
+              src="/images/logo.jpeg"
+              alt={t("nav.logoAlt")}
+              width={56}
+              height={56}
+              className="rounded"
+            />
+          </a>
         </div>
 
         <nav className="hidden items-center gap-6 md:flex">
-          {navKeys.map((key) => (
+          {navItems.map(({ key, href }) => (
             <a
               key={key}
-              href="#"
+              href={href}
               className="transition-colors hover:text-brand-orange"
             >
               {t(`nav.${key}`)}
@@ -66,10 +79,10 @@ export default function Header() {
 
       {menuOpen && (
         <nav className="flex flex-col border-t border-brand-cream/20 px-4 pb-4 pt-2 md:hidden">
-          {navKeys.map((key) => (
+          {navItems.map(({ key, href }) => (
             <a
               key={key}
-              href="#"
+              href={href}
               className="py-2 transition-colors hover:text-brand-orange"
             >
               {t(`nav.${key}`)}

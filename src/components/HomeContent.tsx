@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslation } from "@/lib/useTranslation";
 
 export default function HomeContent() {
@@ -9,8 +10,15 @@ export default function HomeContent() {
     <>
       <section className="bg-brand-cream px-4 py-20 text-center">
         <div className="mx-auto max-w-4xl">
-          <div className="mx-auto mb-8 flex h-24 w-48 items-center justify-center rounded bg-gray-400 text-lg font-bold text-white">
-            LOGO
+          <div className="mx-auto mb-8 flex items-center justify-center">
+            <Image
+              src="/images/logo.jpeg"
+              alt={t("nav.logoAlt")}
+              width={120}
+              height={120}
+              priority={true}
+              className="rounded"
+            />
           </div>
           <h1 className="mb-6 text-4xl font-bold leading-tight text-brand-dark-green md:text-5xl">
             {t("home.heroTitle")}
