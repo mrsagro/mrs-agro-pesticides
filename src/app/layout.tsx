@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Poppins, Noto_Nastaliq_Urdu, Noto_Sans_Arabic } from "next/font/google";
+import { Fraunces, Work_Sans, Noto_Nastaliq_Urdu, Noto_Sans_Arabic } from "next/font/google";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import HtmlWrapper from "@/components/HtmlWrapper";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: "variable",
+  axes: ["opsz"],
+});
+
+const workSans = Work_Sans({
+  variable: "--font-work-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 const nastaliq = Noto_Nastaliq_Urdu({
@@ -52,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${nastaliq.variable} ${notoSansArabic.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${workSans.variable} ${nastaliq.variable} ${notoSansArabic.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <LanguageProvider>

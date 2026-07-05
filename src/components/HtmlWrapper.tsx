@@ -17,7 +17,7 @@ export default function HtmlWrapper({ children }: { children: ReactNode }) {
       body.style.fontFamily =
         "var(--font-nastaliq), var(--font-noto-sans-arabic), serif";
     } else {
-      body.style.fontFamily = "var(--font-poppins), sans-serif";
+      body.style.fontFamily = "var(--font-work-sans), sans-serif";
     }
   }, [language]);
 

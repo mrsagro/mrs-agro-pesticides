@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useTranslation } from "@/lib/useTranslation";
 
@@ -10,8 +9,8 @@ const navItems: { key: string; href: string }[] = [
   { key: "home", href: "/" },
   { key: "about", href: "/about" },
   { key: "products", href: "/products" },
-  { key: "franchise", href: "/franchise" },
-  { key: "contact", href: "/contact" },
+  { key: "franchise", href: "#" },
+  { key: "contact", href: "#" },
 ];
 
 export default function Header() {
@@ -23,7 +22,7 @@ export default function Header() {
     <header className="bg-brand-dark-green text-brand-cream">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
         <div className="flex items-center gap-2">
-          <Link href="/">
+          <a href="/">
             <div className="relative h-14 w-14 overflow-hidden rounded-full">
               <Image
                 src="/images/logo.jpeg"
@@ -33,18 +32,18 @@ export default function Header() {
                 sizes="56px"
               />
             </div>
-          </Link>
+          </a>
         </div>
 
         <nav className="hidden items-center gap-6 md:flex">
           {navItems.map(({ key, href }) => (
-            <Link
+            <a
               key={key}
               href={href}
               className="transition-colors hover:text-brand-orange"
             >
               {t(`nav.${key}`)}
-            </Link>
+            </a>
           ))}
         </nav>
 
@@ -83,13 +82,13 @@ export default function Header() {
       {menuOpen && (
         <nav className="flex flex-col border-t border-brand-cream/20 px-4 pb-4 pt-2 md:hidden">
           {navItems.map(({ key, href }) => (
-            <Link
+            <a
               key={key}
               href={href}
               className="py-2 transition-colors hover:text-brand-orange"
             >
               {t(`nav.${key}`)}
-            </Link>
+            </a>
           ))}
         </nav>
       )}
