@@ -48,7 +48,7 @@ export default function FranchiseContent() {
               </div>
             ) : (
               <Image
-                src="/images/franchise-shop.jpg"
+                src="/images/franchise-shop.jpeg"
                 alt={t("franchise.shopImageAlt")}
                 fill
                 className="object-cover transition-transform duration-700 hover:scale-105"
