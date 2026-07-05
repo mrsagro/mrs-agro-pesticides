@@ -38,7 +38,7 @@ export default function AboutContent() {
             {values.map((v) => (
               <div
                 key={v.titleKey}
-                className="rounded-lg border border-brand-light-green/30 bg-white p-6 shadow-sm"
+                className="rounded-2xl border border-brand-light-green/30 bg-white p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 md:p-8"
               >
                 <h3 className="mb-3 text-xl font-semibold text-brand-dark-green">
                   {t(`about.${v.titleKey}`)}

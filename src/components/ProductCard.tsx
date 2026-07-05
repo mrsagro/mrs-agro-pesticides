@@ -11,8 +11,8 @@ export default function ProductCard({ product }: { product: Product }) {
   const isPlaceholder = product.imageUrl.includes("placeholder");
 
   return (
-    <div className="group rounded-lg border border-brand-light-green/30 bg-brand-cream shadow-sm transition-shadow hover:shadow-md">
-      <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-t-lg bg-gray-200">
+    <div className="group rounded-2xl border border-brand-light-green/30 bg-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+      <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-t-2xl bg-gray-200">
         {isPlaceholder ? (
           <span className="px-4 text-center text-sm text-gray-500">
             {t("products.noImageText")}
@@ -28,7 +28,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
       </div>
 
-      <div className="flex flex-col p-5">
+      <div className="flex flex-col p-6 md:p-8">
         <h3 className="mb-2 text-xl font-semibold text-brand-dark-green">
           {language === "en" ? product.nameEn : product.nameUr}
         </h3>
