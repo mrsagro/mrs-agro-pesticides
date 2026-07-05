@@ -36,33 +36,21 @@ export default function AboutContent() {
           </p>
         </div>
 
-        <div className="mb-16">
-          <h2 className="mb-6 text-3xl font-bold text-brand-dark-green">
-            {t("about.heading")}
-          </h2>
-          <p className="mb-4 text-lg leading-relaxed text-brand-charcoal/80">
-            {t("about.paragraph1")}
-          </p>
-          <p className="text-lg leading-relaxed text-brand-charcoal/80">
-            {t("about.paragraph2")}
-          </p>
-        </div>
-
         <div className="mb-16 flex flex-col items-center gap-8 md:flex-row md:items-start">
-          <div className="shrink-0">
+          <div className="h-[200px] w-[200px] shrink-0">
             {ceoImgError ? (
-              <div className="flex h-[200px] w-[200px] items-center justify-center rounded-full bg-gray-200">
+              <div className="flex h-full w-full items-center justify-center rounded-full bg-gray-200">
                 <span className="text-center text-sm text-gray-500">
                   {t("about.ceoImageAlt")}
                 </span>
               </div>
             ) : (
               <Image
-                src="/images/ceo.jpg"
+                src="/images/ceo.jpeg"
                 alt={t("about.ceoImageAlt")}
                 width={200}
                 height={200}
-                className="rounded-full object-cover"
+                className="h-[200px] w-[200px] rounded-full object-cover"
                 onError={() => setCeoImgError(true)}
               />
             )}
@@ -75,6 +63,18 @@ export default function AboutContent() {
               {t("about.ceoMessageText")}
             </p>
           </div>
+        </div>
+
+        <div className="mb-16">
+          <h2 className="mb-6 text-3xl font-bold text-brand-dark-green">
+            {t("about.heading")}
+          </h2>
+          <p className="mb-4 text-lg leading-relaxed text-brand-charcoal/80">
+            {t("about.paragraph1")}
+          </p>
+          <p className="text-lg leading-relaxed text-brand-charcoal/80">
+            {t("about.paragraph2")}
+          </p>
         </div>
 
         <div className="mb-16">
