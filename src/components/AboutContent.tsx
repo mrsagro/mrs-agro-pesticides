@@ -41,13 +41,13 @@ export default function AboutContent() {
       </section>
 
       {/* 2. Full-bleed CEO Message section */}
-      <section className="relative bg-brand-dark-green px-4 py-16 md:py-20 text-brand-cream">
+      <section className="relative bg-brand-dark-green px-4 py-12 md:py-16 text-brand-cream">
         <div className="absolute inset-0 bg-field-pattern opacity-[0.02] pointer-events-none" />
         <div className="mx-auto max-w-5xl">
           <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
             
             {/* CEO Image Container */}
-            <div className="relative shrink-0 w-[240px] h-[240px] md:w-[280px] md:h-[280px] rounded-3xl border border-brand-wheat-gold/30 p-2.5 bg-white/5 backdrop-blur-sm shadow-2xl">
+            <div className="relative shrink-0 w-[280px] h-[280px] md:w-[340px] md:h-[340px] rounded-3xl border border-brand-wheat-gold/30 p-2 bg-white/5 backdrop-blur-sm shadow-2xl">
               <div className="relative w-full h-full rounded-2xl overflow-hidden bg-brand-dark-green flex items-center justify-center">
                 {ceoImgError ? (
                   <div className="flex h-full w-full items-center justify-center bg-brand-charcoal/50 p-6">
@@ -60,8 +60,8 @@ export default function AboutContent() {
                     src="/images/ceo.jpeg"
                     alt={t("about.ceoImageAlt")}
                     fill
-                    className="object-contain p-1"
-                    sizes="(max-w-md) 100vw, 280px"
+                    className="object-contain"
+                    sizes="(max-w-md) 100vw, 340px"
                     onError={() => setCeoImgError(true)}
                   />
                 )}
