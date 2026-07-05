@@ -67,20 +67,15 @@
     "backToProducts": "← Back to Products"
   },
   "franchise": {
-    "pageTitle": "Become a Franchise Partner",
-    "pageSubtitle": "Join MRS Agro Chemicals' growing network of dealers and shop owners across Pakistan. Partner with us to bring premium quality seeds to your local farming community.",
-    "benefitsHeading": "Why Partner With Us",
-    "benefit1": "Access to certified, high-yield seed varieties that farmers trust and demand, ensuring steady sales and repeat customers.",
-    "benefit2": "Comprehensive training, marketing materials, and ongoing support to help you grow your business confidently.",
-    "benefit3": "Become part of a respected brand with decades of agricultural expertise and a loyal customer base nationwide.",
-    "formHeading": "Apply for Franchise",
-    "formNameLabel": "Full Name",
-    "formPhoneLabel": "Phone Number",
-    "formCityLabel": "City",
-    "formMessageLabel": "Message (optional)",
-    "formSubmitButton": "Submit Application",
-    "formSuccessMessage": "Thank you! Your application has been sent. We'll contact you soon.",
-    "formErrorMessage": "Something went wrong. Please try again or contact us directly."
+    "pageTitle": "Our Franchise",
+    "pageSubtitle": "Proudly serving farmers across Punjab through our authorized franchise network.",
+    "shopImageAlt": "MRS Agro Chemicals franchise shop",
+    "aboutHeading": "Our Presence",
+    "aboutText": "Our franchise shop stands as a trusted destination for farmers seeking quality seeds and expert guidance. Backed by the MRS Agro Chemicals brand, it reflects our commitment to accessibility, service, and long-term partnership with the farming community.",
+    "locationLabel": "Location",
+    "locationValue": "Multan, Punjab, Pakistan",
+    "networkLabel": "Network",
+    "networkValue": "Authorized franchise network across Punjab"
   },
   "contact": {
     "pageTitle": "Contact Us",

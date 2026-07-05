@@ -1,98 +1,100 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { useTranslation } from "@/lib/useTranslation";
-import ContactForm from "@/components/ContactForm";
-import type { FormField } from "@/components/ContactForm";
 
-const benefitKeys = ["benefit1", "benefit2", "benefit3"];
-
-const franchiseFields: FormField[] = [
-  { name: "name", label: "", type: "text", required: true },
-  { name: "phone", label: "", type: "tel", required: true },
-  { name: "city", label: "", type: "text", required: true },
-  { name: "message", label: "", type: "textarea", required: false },
+const infoItems = [
+  { labelKey: "franchise.locationLabel", valueKey: "franchise.locationValue" },
+  { labelKey: "franchise.networkLabel", valueKey: "franchise.networkValue" },
 ];
 
 export default function FranchiseContent() {
   const { t, language } = useTranslation();
-
-  const fieldsWithLabels = franchiseFields.map((f) => ({
-    ...f,
-    label: t(`franchise.form${f.name.charAt(0).toUpperCase() + f.name.slice(1)}Label`),
-  }));
+  const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="bg-brand-cream overflow-hidden">
+    <div className="bg-brand-cream overflow-x-hidden">
       {/* Page Hero Section */}
-      <section className="mx-auto max-w-7xl px-4 py-12 lg:py-0 lg:h-[calc(100vh-80px)] min-h-[550px] lg:min-h-0 flex flex-col justify-center animate-fade-in-up">
-        
-        {/* Main Title Block */}
-        <div className="mb-16 text-center">
-          <span className="mb-3 text-xs uppercase tracking-widest text-brand-wheat-gold font-bold font-work-sans block">
-            {language === "ur" ? "کاروباری شراکت داری" : "Corporate Partnership"}
-          </span>
-          <h1 className="mb-6 text-4xl sm:text-5xl font-bold text-brand-dark-green font-fraunces leading-tight">
+      <section className="relative px-4 py-20 text-center md:py-24 bg-white border-b border-brand-wheat-gold/15">
+        <div className="mx-auto max-w-4xl animate-fade-in-up">
+          <p className="mb-3 text-xs uppercase tracking-widest text-brand-wheat-gold font-bold font-work-sans">
+            {language === "ur" ? "ہماری نمائش" : "Our Showroom"}
+          </p>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark-green font-fraunces leading-tight">
             {t("franchise.pageTitle")}
           </h1>
-          <div className="mx-auto mb-6 h-0.5 w-12 bg-brand-orange" />
-          <p className="mx-auto max-w-3xl text-lg sm:text-xl text-brand-charcoal/80 leading-relaxed font-light">
+          <div className="mx-auto mt-6 h-1 w-16 bg-brand-orange rounded-full" />
+          <p className="mx-auto mt-6 max-w-3xl text-lg sm:text-xl text-brand-charcoal/80 leading-relaxed font-light">
             {t("franchise.pageSubtitle")}
           </p>
         </div>
+      </section>
 
-        {/* Asymmetrical Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-start">
-          
-          {/* Column 1: Benefits List */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="border-s-4 border-brand-light-green ps-5 mb-8 py-1">
-              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark-green font-fraunces leading-tight">
-                {t("franchise.benefitsHeading")}
-              </h2>
-            </div>
-            
-            <div className="space-y-6">
-              {benefitKeys.map((key, index) => (
-                <div
-                  key={key}
-                  className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40"
-                >
-                  {/* Large Stylized Digit */}
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-wheat-gold font-fraunces text-xl font-bold">
-                    0{index + 1}
-                  </div>
-                  <div className="pt-1">
-                    <p className="text-base leading-relaxed text-brand-charcoal/80 font-light font-work-sans">
-                      {t(`franchise.${key}`)}
-                    </p>
-                  </div>
+      {/* Shop Image Section */}
+      <section className="mx-auto max-w-5xl px-4 py-16 md:py-20">
+        <div className="rounded-2xl border border-brand-wheat-gold/20 bg-white p-3 shadow-lg">
+          <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-gray-200">
+            {imgError ? (
+              <div className="flex h-full w-full items-center justify-center bg-gray-200 p-8">
+                <div className="text-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-3 h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+                  </svg>
+                  <span className="text-sm text-gray-500 font-work-sans">
+                    {language === "ur" ? "تصویر جلد شامل کی جائے گی" : "Shop Image Coming Soon"}
+                  </span>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Column 2: Application Form Framed Box */}
-          <div className="lg:col-span-7">
-            <div className="rounded-3xl border border-brand-wheat-gold/25 bg-white p-8 sm:p-10 shadow-xl relative overflow-hidden">
-              {/* Subtle visual strip */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-brand-orange" />
-              
-              <h3 className="mb-6 text-2xl font-bold text-brand-dark-green font-fraunces">
-                {t("franchise.formHeading")}
-              </h3>
-              
-              <ContactForm
-                endpoint="/api/franchise"
-                submitLabel={t("franchise.formSubmitButton")}
-                successMessage={t("franchise.formSuccessMessage")}
-                errorMessage={t("franchise.formErrorMessage")}
-                fields={fieldsWithLabels}
+              </div>
+            ) : (
+              <Image
+                src="/images/franchise-shop.jpg"
+                alt={t("franchise.shopImageAlt")}
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+                sizes="(max-w-5xl) 100vw"
+                onError={() => setImgError(true)}
               />
-            </div>
+            )}
           </div>
-
         </div>
+      </section>
 
+      {/* Our Presence Section */}
+      <section className="mx-auto max-w-5xl px-4 pb-16 md:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-5 border-s-4 border-brand-light-green ps-6 py-1">
+            <h2 className="text-3xl font-bold text-brand-dark-green font-fraunces leading-tight">
+              {t("franchise.aboutHeading")}
+            </h2>
+          </div>
+          <div className="lg:col-span-7">
+            <p className="text-lg leading-relaxed text-brand-charcoal/80 font-light">
+              {t("franchise.aboutText")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Info Cards Section */}
+      <section className="bg-white border-y border-brand-wheat-gold/15 px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {infoItems.map((item) => (
+              <div
+                key={item.labelKey}
+                className="rounded-2xl border border-brand-light-green/30 bg-brand-cream p-6 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              >
+                <h3 className="mb-2 text-lg font-bold text-brand-dark-green font-fraunces">
+                  {t(item.labelKey)}
+                </h3>
+                <p className="text-base leading-relaxed text-brand-charcoal/80 font-work-sans">
+                  {t(item.valueKey)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );

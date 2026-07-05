@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import FranchiseContent from "@/components/FranchiseContent";
 
 export const metadata: Metadata = {
-  title: "Become a Franchise Partner | MRS Agro Chemicals",
+  title: "Our Franchise | MRS Agro Chemicals",
   description:
-    "Join MRS Agro Chemicals' franchise network. Partner with us to distribute premium quality seeds and serve the agricultural community in your city.",
+    "Discover MRS Agro Chemicals' authorized franchise shop in Multan. Serving farmers across Punjab with quality seeds and expert guidance.",
   openGraph: {
-    title: "Become a Franchise Partner | MRS Agro Chemicals",
+    title: "Our Franchise | MRS Agro Chemicals",
     description:
-      "Join MRS Agro Chemicals' franchise network. Partner with us to distribute premium quality seeds.",
+      "Discover MRS Agro Chemicals' authorized franchise shop in Multan.",
     type: "website",
   },
 };
