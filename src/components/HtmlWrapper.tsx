@@ -14,8 +14,7 @@ export default function HtmlWrapper({ children }: { children: ReactNode }) {
   useEffect(() => {
     const body = document.body;
     if (language === "ur") {
-      body.style.fontFamily =
-        "var(--font-nastaliq), var(--font-noto-sans-arabic), serif";
+      body.style.fontFamily = "var(--font-noto-sans-arabic), sans-serif";
     } else {
       body.style.fontFamily = "var(--font-work-sans), sans-serif";
     }

@@ -12,7 +12,7 @@ const contactFields: FormField[] = [
 ];
 
 export default function ContactContent() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const fieldsWithLabels = contactFields.map((f) => ({
     ...f,
@@ -20,131 +20,144 @@ export default function ContactContent() {
   }));
 
   return (
-    <div className="bg-brand-cream">
-      <section className="mx-auto max-w-5xl px-4 py-16">
-        <div className="mb-12 text-center">
-          <h1 className="mb-4 text-4xl font-bold text-brand-dark-green md:text-5xl">
+    <div className="bg-brand-cream overflow-hidden">
+      {/* Page Hero Section */}
+      <section className="mx-auto max-w-7xl px-4 py-24 md:py-32 animate-fade-in-up">
+        
+        {/* Main Title Block */}
+        <div className="mb-16 text-center">
+          <span className="mb-3 text-xs uppercase tracking-widest text-brand-wheat-gold font-bold font-work-sans block">
+            {language === "ur" ? "ہم سے رابطہ کریں" : "Get In Touch"}
+          </span>
+          <h1 className="mb-6 text-4xl sm:text-5xl font-bold text-brand-dark-green font-fraunces leading-tight">
             {t("contact.pageTitle")}
           </h1>
-          <p className="mx-auto max-w-2xl text-lg text-brand-charcoal/80">
+          <div className="mx-auto mb-6 h-0.5 w-12 bg-brand-orange" />
+          <p className="mx-auto max-w-3xl text-lg sm:text-xl text-brand-charcoal/80 leading-relaxed font-light">
             {t("contact.pageSubtitle")}
           </p>
         </div>
 
-        <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-lg border border-brand-light-green/30 bg-white p-6 text-center shadow-sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto mb-3 h-6 w-6 text-brand-orange"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-            </svg>
-            <p className="mb-1 text-sm font-medium text-brand-dark-green">
-              {t("contact.phoneLabel")}
-            </p>
-            <a
-              href={contactInfo.phoneLink}
-              className="text-sm text-brand-charcoal/80 transition-colors hover:text-brand-orange"
-            >
-              {contactInfo.phone}
-            </a>
+        {/* Asymmetrical Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-start">
+          
+          {/* Column 1: Contact Details Stack */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="border-s-4 border-brand-light-green ps-5 mb-8 py-1">
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark-green font-fraunces leading-tight">
+                {language === "ur" ? "رابطہ کی تفصیلات" : "Contact Details"}
+              </h2>
+            </div>
+            
+            <div className="space-y-6">
+              
+              {/* Phone Card */}
+              <div className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
+                    {t("contact.phoneLabel")}
+                  </h3>
+                  <a
+                    href={contactInfo.phoneLink}
+                    className="text-base text-brand-charcoal hover:text-brand-orange transition-colors font-medium font-work-sans"
+                  >
+                    {contactInfo.phone}
+                  </a>
+                </div>
+              </div>
+
+              {/* WhatsApp Card */}
+              <div className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
+                    {t("contact.whatsappLabel")}
+                  </h3>
+                  <a
+                    href={contactInfo.whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base text-brand-charcoal hover:text-brand-orange transition-colors font-medium font-work-sans"
+                  >
+                    {t("footer.whatsapp")}
+                  </a>
+                </div>
+              </div>
+
+              {/* Email Card */}
+              <div className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
+                    {t("contact.emailLabel")}
+                  </h3>
+                  <a
+                    href={contactInfo.emailLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base text-brand-charcoal hover:text-brand-orange transition-colors font-medium font-work-sans"
+                  >
+                    {contactInfo.email}
+                  </a>
+                </div>
+              </div>
+
+              {/* Address Card */}
+              <div className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
+                    {t("contact.addressLabel")}
+                  </h3>
+                  <p className="text-base text-brand-charcoal leading-relaxed font-light font-work-sans">
+                    {contactInfo.address}
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
 
-          <div className="rounded-lg border border-brand-light-green/30 bg-white p-6 text-center shadow-sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto mb-3 h-6 w-6 text-brand-orange"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <p className="mb-1 text-sm font-medium text-brand-dark-green">
-              {t("contact.whatsappLabel")}
-            </p>
-            <a
-              href={contactInfo.whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-brand-charcoal/80 transition-colors hover:text-brand-orange"
-            >
-              {t("footer.whatsapp")}
-            </a>
+          {/* Column 2: Direct message form card */}
+          <div className="lg:col-span-7">
+            <div className="rounded-3xl border border-brand-wheat-gold/25 bg-white p-8 sm:p-10 shadow-xl relative overflow-hidden">
+              {/* Subtle top visual accent strip */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-brand-orange" />
+              
+              <h3 className="mb-6 text-2xl font-bold text-brand-dark-green font-fraunces">
+                {t("contact.formHeading")}
+              </h3>
+              
+              <ContactForm
+                endpoint="/api/contact"
+                submitLabel={t("contact.formSubmitButton")}
+                successMessage={t("contact.formSuccessMessage")}
+                errorMessage={t("contact.formErrorMessage")}
+                fields={fieldsWithLabels}
+              />
+            </div>
           </div>
 
-          <div className="rounded-lg border border-brand-light-green/30 bg-white p-6 text-center shadow-sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto mb-3 h-6 w-6 text-brand-orange"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="2" y="4" width="20" height="16" rx="2" />
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-            </svg>
-            <p className="mb-1 text-sm font-medium text-brand-dark-green">
-              {t("contact.emailLabel")}
-            </p>
-            <a
-              href={contactInfo.emailLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-brand-charcoal/80 transition-colors hover:text-brand-orange"
-            >
-              {contactInfo.email}
-            </a>
-          </div>
-
-          <div className="rounded-lg border border-brand-light-green/30 bg-white p-6 text-center shadow-sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto mb-3 h-6 w-6 text-brand-orange"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <p className="mb-1 text-sm font-medium text-brand-dark-green">
-              {t("contact.addressLabel")}
-            </p>
-            <p className="text-sm text-brand-charcoal/80">
-              {contactInfo.address}
-            </p>
-          </div>
         </div>
 
-        <div>
-          <h2 className="mb-8 text-center text-3xl font-bold text-brand-dark-green">
-            {t("contact.formHeading")}
-          </h2>
-          <ContactForm
-            endpoint="/api/contact"
-            submitLabel={t("contact.formSubmitButton")}
-            successMessage={t("contact.formSuccessMessage")}
-            errorMessage={t("contact.formErrorMessage")}
-            fields={fieldsWithLabels}
-          />
-        </div>
       </section>
     </div>
   );
