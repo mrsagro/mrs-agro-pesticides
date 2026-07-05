@@ -23,8 +23,8 @@ export default function ProductDetailContent({
   ];
 
   return (
-    <div className="bg-brand-cream min-h-screen py-16 md:py-24 overflow-hidden" dir={dir}>
-      <div className="mx-auto max-w-6xl px-4 animate-fade-in-up">
+    <div className="bg-brand-cream lg:h-[calc(100vh-80px)] min-h-screen lg:min-h-0 flex flex-col justify-center py-12 lg:py-0 overflow-hidden" dir={dir}>
+      <div className="mx-auto max-w-6xl w-full px-4 animate-fade-in-up">
         
         {/* Back Link */}
         <Link

@@ -24,7 +24,7 @@ export default function FranchiseContent() {
   return (
     <div className="bg-brand-cream overflow-hidden">
       {/* Page Hero Section */}
-      <section className="mx-auto max-w-7xl px-4 py-24 md:py-32 animate-fade-in-up">
+      <section className="mx-auto max-w-7xl px-4 py-12 lg:py-0 lg:h-[calc(100vh-80px)] min-h-[550px] lg:min-h-0 flex flex-col justify-center animate-fade-in-up">
         
         {/* Main Title Block */}
         <div className="mb-16 text-center">

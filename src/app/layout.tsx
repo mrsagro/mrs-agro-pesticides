@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   description:
     "MRS Agro Chemicals provides premium quality certified seeds to farmers across Pakistan. Explore our range of hybrid maize, wheat, cotton, and rice varieties.",
   icons: {
-    icon: "/icon.png",
+    icon: { url: "/favicon.svg", type: "image/svg+xml" },
   },
   openGraph: {
     type: "website",

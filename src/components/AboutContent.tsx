@@ -26,29 +26,27 @@ export default function AboutContent() {
 
   return (
     <div className="bg-brand-cream overflow-x-hidden">
-      {/* 1. Header Hero section */}
-      <section className="relative px-4 py-20 text-center md:py-24 bg-white border-b border-brand-wheat-gold/15">
-        <div className="absolute inset-0 bg-field-pattern opacity-[0.015] pointer-events-none" />
-        <div className="mx-auto max-w-4xl animate-fade-in-up">
-          <p className="mb-3 text-xs uppercase tracking-widest text-brand-wheat-gold font-bold font-work-sans">
-            {t("about.tagline")}
-          </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-dark-green font-fraunces leading-tight">
-            {t("about.pageTitle")}
-          </h1>
-          <div className="mx-auto mt-6 h-1 w-16 bg-brand-orange rounded-full" />
-        </div>
-      </section>
-
-      {/* 2. Full-bleed CEO Message section */}
-      <section className="relative bg-brand-dark-green px-4 py-10 md:py-14 text-brand-cream min-h-screen flex items-center">
+      {/* 1. Merged Title & CEO Message Hero Section */}
+      <section className="relative bg-brand-dark-green px-4 py-16 lg:py-0 lg:h-[calc(100vh-80px)] min-h-[600px] lg:min-h-0 flex items-center text-brand-cream border-b border-brand-wheat-gold/15">
         <div className="absolute inset-0 bg-field-pattern opacity-[0.02] pointer-events-none" />
-        <div className="mx-auto max-w-5xl w-full">
-          <div className="flex flex-col items-center gap-8 md:flex-row md:items-center">
+        <div className="mx-auto max-w-5xl w-full animate-fade-in-up">
+          
+          {/* Top Title Row */}
+          <div className="mb-8 lg:mb-12 text-center lg:text-start border-b border-brand-cream/10 pb-6 lg:pb-8">
+            <p className="mb-2 text-xs uppercase tracking-widest text-brand-wheat-gold font-bold font-work-sans">
+              {t("about.tagline")}
+            </p>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-cream font-fraunces leading-tight">
+              {t("about.pageTitle")}
+            </h1>
+          </div>
+
+          {/* CEO Message Row */}
+          <div className="flex flex-col items-center gap-8 lg:gap-12 lg:flex-row lg:items-center">
             
-            {/* CEO Image Container */}
-            <div className="relative shrink-0 w-[300px] h-[400px] md:w-[360px] md:h-[480px] rounded-3xl border border-brand-wheat-gold/30 p-2 bg-white/5 backdrop-blur-sm shadow-2xl">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden bg-brand-dark-green flex items-center justify-center">
+            {/* CEO Image Container - Reduced size for screen-fit */}
+            <div className="relative shrink-0 w-[200px] h-[260px] lg:w-[220px] lg:h-[290px] rounded-3xl border border-brand-wheat-gold/30 p-2 bg-white/5 backdrop-blur-sm shadow-2xl">
+              <div className="relative w-full h-full rounded-2xl overflow-hidden bg-brand-dark-green">
                 {ceoImgError ? (
                   <div className="flex h-full w-full items-center justify-center bg-brand-charcoal/50 p-6">
                     <span className="text-center text-xs text-brand-cream/60 leading-relaxed font-work-sans">
@@ -60,23 +58,23 @@ export default function AboutContent() {
                     src="/images/ceo.jpeg"
                     alt={t("about.ceoImageAlt")}
                     fill
-                    className="object-contain"
-                    sizes="(max-w-md) 100vw, 360px"
+                    className="object-cover"
+                    sizes="(max-w-md) 100vw, 220px"
                     onError={() => setCeoImgError(true)}
                   />
                 )}
               </div>
             </div>
 
-            {/* CEO Text */}
-            <div className="flex-1 text-start">
-              <span className="text-xs uppercase tracking-widest text-brand-wheat-gold font-bold font-work-sans mb-2 block">
+            {/* CEO Text - Aligned with image height */}
+            <div className="flex-1 text-center lg:text-start max-w-2xl">
+              <span className="text-xs uppercase tracking-widest text-brand-light-green font-bold font-work-sans mb-2 block">
                 {language === "ur" ? "چیف ایگزیکٹو کا پیغام" : "Executive Statement"}
               </span>
-              <h2 className="mb-4 text-3xl font-bold text-brand-cream font-fraunces leading-snug">
+              <h2 className="mb-4 text-2xl lg:text-3xl font-bold text-brand-cream font-fraunces leading-snug">
                 {t("about.ceoMessageHeading")}
               </h2>
-              <p className="text-lg leading-relaxed text-brand-cream/85 font-light">
+              <p className="text-sm sm:text-base leading-relaxed text-brand-cream/85 font-light font-work-sans">
                 {t("about.ceoMessageText")}
               </p>
             </div>

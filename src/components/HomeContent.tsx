@@ -11,7 +11,7 @@ export default function HomeContent() {
   return (
     <>
       {/* Premium Full-Bleed Hero Section */}
-      <section className="relative overflow-hidden bg-brand-dark-green px-4 py-24 text-brand-cream md:py-32 lg:py-40 min-h-[85vh] flex items-center">
+      <section className="relative overflow-hidden bg-brand-dark-green px-4 py-16 lg:py-0 lg:h-[calc(100vh-80px)] min-h-[500px] lg:min-h-0 flex items-center text-brand-cream">
         {/* Subtle repeating field pattern texture in background */}
         <div className="absolute inset-0 bg-field-pattern opacity-[0.03] pointer-events-none" />
         
