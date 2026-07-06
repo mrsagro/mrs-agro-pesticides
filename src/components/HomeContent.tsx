@@ -150,7 +150,7 @@ export default function HomeContent() {
                     </svg>
                   </div>
                   <h3 className="mb-2 text-xl font-bold text-brand-dark-green font-fraunces">
-                    {language === "ur" ? "معیار کی ضمانت" : "Pure Seed Guarantee"}
+                    {language === "ur" ? "معیار کی ضمانت" : "Pure Pesticide Guarantee"}
                   </h3>
                   <p className="text-sm text-brand-charcoal/70 leading-relaxed font-work-sans">
                     {language === "ur" ? "لیبارٹری سے تصدیق شدہ اور کاشتکاروں کی پسند۔" : "Rigorous double-testing pipeline ensuring maximum purity and grain viability."}
@@ -201,7 +201,7 @@ export default function HomeContent() {
               <span className="text-4xl md:text-5xl font-bold text-brand-dark-green font-fraunces">50+</span>
               <div className="my-2 h-0.5 w-8 bg-brand-light-green rounded-full" />
               <p className="text-sm text-brand-charcoal/70 font-medium font-work-sans">
-                {language === "ur" ? "بیج کی اقسام" : "Seed Varieties"}
+                {language === "ur" ? "کیڑے مار ادویات کی اقسام" : "Pesticide Varieties"}
               </p>
             </div>
             <div className="flex flex-col items-center">

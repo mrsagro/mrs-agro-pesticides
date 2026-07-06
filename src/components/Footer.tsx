@@ -22,8 +22,8 @@ export default function Footer() {
             </h3>
             <p className="text-sm leading-relaxed text-brand-cream/70 font-light max-w-sm font-work-sans">
               {language === "ur" 
-                ? "پاکستان بھر میں کاشتکاروں کو پریمیم اور اعلیٰ پیداواری بیجوں کی فراہمی جو فصلوں کو بیماریوں سے محفوظ اور خوشحالی کو یقینی بناتے ہیں۔"
-                : "Empowering Pakistan's agricultural community with certified, high-yield seed varieties optimized for local climate and soil conditions."}
+                ? "پاکستان بھر میں کاشتکاروں کو پریمیم اور اعلیٰ پیداواری کیڑے مار ادویات کی فراہمی جو فصلوں کو بیماریوں سے محفوظ اور خوشحالی کو یقینی بناتے ہیں۔"
+                : "Empowering Pakistan's agricultural community with certified, high-yield Pesticide varieties optimized for local climate and soil conditions."}
             </p>
           </div>
 

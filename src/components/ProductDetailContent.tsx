@@ -13,7 +13,7 @@ export default function ProductDetailContent({
   const { t, language } = useTranslation();
   const dir = language === "ur" ? "rtl" : "ltr";
 
-  // Typical premium agricultural specification table values based on seed varieties
+  // Typical premium agricultural specification table values based on pesticide varieties
   const specItems = [
     { keyEn: "Germination Standard", keyUr: "جرمینییشن کا تناسب", valEn: "95% - 98%", valUr: "95% - 98%" },
     { keyEn: "Physical Purity", keyUr: "طبیعی صفائی", valEn: "99.2%", valUr: "99.2%" },
@@ -79,7 +79,7 @@ export default function ProductDetailContent({
               {language === "en" ? product.descriptionEn : product.descriptionUr}
             </p>
 
-            {/* Seed Specifications Table */}
+            {/* Pesticide Specifications Table */}
             <div className="mb-10 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm">
               <h3 className="mb-4 text-lg font-bold text-brand-dark-green font-fraunces">
                 {language === "ur" ? "بیج کی خصوصیات" : "Technical Specifications"}
@@ -107,7 +107,7 @@ export default function ProductDetailContent({
               <p className="mb-5 text-sm text-brand-cream/80 leading-relaxed font-light font-work-sans">
                 {language === "ur" 
                   ? "اپنے علاقے میں آفیشل ڈیلر بننے کے لیے آج ہی فرنچائز کی درخواست جمع کروائیں۔" 
-                  : "Become an authorized franchise partner and supply premium seeds to farmers in your area."}
+                  : "Become an authorized franchise partner and supply premium Pesticides to farmers in your area."}
               </p>
               <Link
                 href="/franchise"

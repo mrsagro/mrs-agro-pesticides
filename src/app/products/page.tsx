@@ -3,13 +3,13 @@ import { products } from "@/lib/products";
 import ProductsContent from "@/components/ProductsContent";
 
 export const metadata: Metadata = {
-  title: "Our Seed Varieties | MRS Agro Chemicals",
+  title: "Our Pesticide Varieties | MRS Agro Chemicals",
   description:
-    "Browse MRS Agro Chemicals' range of premium certified seed varieties including hybrid maize, wheat, cotton, and Super Basmati rice — selected for Pakistan's diverse growing regions.",
+    "Browse MRS Agro Chemicals' range of premium certified Pesticide varieties including hybrid maize, wheat, cotton, and Super Basmati rice — selected for Pakistan's diverse growing regions.",
   openGraph: {
-    title: "Our Seed Varieties | MRS Agro Chemicals",
+    title: "Our Pesticide Varieties | MRS Agro Chemicals",
     description:
-      "Browse MRS Agro Chemicals' range of premium certified seed varieties including hybrid maize, wheat, cotton, and Super Basmati rice.",
+      "Browse MRS Agro Chemicals' range of premium certified Pesticide varieties including hybrid maize, wheat, cotton, and Super Basmati rice.",
     type: "website",
   },
 };
