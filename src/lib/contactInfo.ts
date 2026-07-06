@@ -5,5 +5,6 @@ export const contactInfo = {
   whatsappLink: "https://wa.me/923018383054",
   email: "mrsagrochemicals1133@gmail.com",
   emailLink: "mailto:mrsagrochemicals1133@gmail.com",
-  address: "Multan, Punjab, Pakistan",
+  address: "Plot No. 106, Phase II, Industrial Estate, Multan, Punjab, Pakistan",
+  addressMapQuery: "Plot+No.+106+Phase+II+Industrial+Estate+Multan+Punjab+Pakistan",
 };

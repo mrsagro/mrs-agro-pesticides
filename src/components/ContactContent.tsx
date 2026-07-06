@@ -20,9 +20,9 @@ export default function ContactContent() {
   }));
 
   return (
-    <div className="bg-brand-cream overflow-hidden">
+    <div className="bg-brand-cream">
       {/* Page Hero Section */}
-      <section className="mx-auto max-w-7xl px-4 py-12 lg:py-0 lg:h-[calc(100vh-80px)] min-h-[550px] lg:min-h-0 flex flex-col justify-center animate-fade-in-up">
+      <section className="mx-auto max-w-7xl px-4 py-12 lg:py-0 lg:min-h-[calc(100vh-80px)] min-h-[550px] flex flex-col justify-center animate-fade-in-up">
         
         {/* Main Title Block */}
         <div className="mb-16 text-center">
@@ -116,21 +116,50 @@ export default function ContactContent() {
               </div>
 
               {/* Address Card */}
-              <div className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              <div className="flex flex-col gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
+                <div className="flex gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
+                      {t("contact.addressLabel")}
+                    </h3>
+                    <p className="text-base text-brand-charcoal leading-relaxed font-light font-work-sans">
+                      {contactInfo.address}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Google Maps Embed */}
+                <div className="rounded-xl overflow-hidden shadow-md">
+                  <iframe
+                    src={`https://www.google.com/maps?q=${contactInfo.addressMapQuery}&output=embed`}
+                    width="100%"
+                    height="300"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="MRS Agro Chemicals Location"
+                  />
+                </div>
+
+                {/* Get Directions Button */}
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${contactInfo.addressMapQuery}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-brand-orange px-6 py-3 text-xs font-bold text-brand-cream transition-all duration-300 hover:bg-brand-orange/95 hover:scale-103 shadow-md active:scale-95 font-work-sans"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
-                    {t("contact.addressLabel")}
-                  </h3>
-                  <p className="text-base text-brand-charcoal leading-relaxed font-light font-work-sans">
-                    {contactInfo.address}
-                  </p>
-                </div>
+                  <span>{language === "ur" ? "راستہ دیکھیں" : "Get Directions"}</span>
+                </a>
               </div>
 
             </div>
