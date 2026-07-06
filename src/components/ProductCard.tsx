@@ -29,7 +29,7 @@ export default function ProductCard({ product }: { product: Product }) {
             src={product.imageUrl}
             alt={language === "en" ? product.nameEn : product.nameUr}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
             sizes="(max-w-md) 100vw, 360px"
           />
         )}

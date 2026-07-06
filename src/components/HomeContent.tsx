@@ -11,9 +11,17 @@ export default function HomeContent() {
   return (
     <>
       {/* Premium Full-Bleed Hero Section */}
-      <section className="relative overflow-hidden bg-brand-dark-green px-4 py-16 lg:py-0 lg:h-[calc(100vh-80px)] min-h-[500px] lg:min-h-0 flex items-center text-brand-cream">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-dark-green via-brand-dark-green to-[#0D2E10] px-4 py-16 lg:py-0 lg:h-[calc(100vh-80px)] min-h-[500px] lg:min-h-0 flex items-center text-brand-cream">
         {/* Subtle repeating field pattern texture in background */}
         <div className="absolute inset-0 bg-field-pattern opacity-[0.03] pointer-events-none" />
+        
+        {/* Diagonal stripe texture overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.07]"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 32px, rgba(255,255,255,0.10) 32px, rgba(255,255,255,0.10) 33px)',
+          }}
+        />
         
         {/* Soft glowing ambient light shapes */}
         <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-brand-light-green/10 blur-[120px] pointer-events-none" />
@@ -181,6 +189,35 @@ export default function HomeContent() {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted Numbers Section */}
+      <section className="bg-white border-t border-brand-wheat-gold/15 px-4 py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 text-center">
+            <div className="flex flex-col items-center">
+              <span className="text-4xl md:text-5xl font-bold text-brand-dark-green font-fraunces">50+</span>
+              <div className="my-2 h-0.5 w-8 bg-brand-light-green rounded-full" />
+              <p className="text-sm text-brand-charcoal/70 font-medium font-work-sans">
+                {language === "ur" ? "بیج کی اقسام" : "Seed Varieties"}
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-4xl md:text-5xl font-bold text-brand-dark-green font-fraunces">20+</span>
+              <div className="my-2 h-0.5 w-8 bg-brand-light-green rounded-full" />
+              <p className="text-sm text-brand-charcoal/70 font-medium font-work-sans">
+                {language === "ur" ? "اضلاع میں خدمات" : "Districts Served"}
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-4xl md:text-5xl font-bold text-brand-dark-green font-fraunces">98%</span>
+              <div className="my-2 h-0.5 w-8 bg-brand-light-green rounded-full" />
+              <p className="text-sm text-brand-charcoal/70 font-medium font-work-sans">
+                {language === "ur" ? "جراثیم کی شرح" : "Germination Rate"}
+              </p>
+            </div>
           </div>
         </div>
       </section>

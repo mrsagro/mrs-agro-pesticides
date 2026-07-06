@@ -16,7 +16,7 @@ export default function FranchiseContent() {
   return (
     <div className="bg-brand-cream overflow-x-hidden">
       {/* Compact header + image side by side on desktop */}
-      <section className="mx-auto max-w-5xl px-4 py-12 md:py-16">
+      <section className="mx-auto max-w-5xl px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left: Title */}
           <div className="text-start animate-fade-in-up">
@@ -62,7 +62,7 @@ export default function FranchiseContent() {
       </section>
 
       {/* Our Presence Section */}
-      <section className="mx-auto max-w-5xl px-4 pb-16 md:pb-20">
+      <section className="mx-auto max-w-5xl px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5 border-s-4 border-brand-light-green ps-6 py-1">
             <h2 className="text-3xl font-bold text-brand-dark-green font-fraunces leading-tight">
@@ -78,7 +78,7 @@ export default function FranchiseContent() {
       </section>
 
       {/* Info Cards Section */}
-      <section className="bg-white border-y border-brand-wheat-gold/15 px-4 py-16 md:py-20">
+      <section className="bg-white border-y border-brand-wheat-gold/15 px-4 py-16">
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {infoItems.map((item) => (

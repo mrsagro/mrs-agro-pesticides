@@ -91,7 +91,7 @@ export default function AboutContent() {
       </section>
 
       {/* 3. Our Story Section */}
-      <section className="mx-auto max-w-5xl px-4 py-24 text-start">
+      <section className="mx-auto max-w-5xl px-4 py-16 text-start">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           <div className="lg:col-span-4 border-s-4 border-brand-light-green ps-6 py-1">
@@ -157,7 +157,7 @@ export default function AboutContent() {
 
       {/* 6. Mission Section */}
       <section className="bg-white border-t border-brand-wheat-gold/15 px-4 py-24 text-start">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-5xl">
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold text-brand-dark-green font-fraunces mb-3">
               {t("about.missionHeading")}

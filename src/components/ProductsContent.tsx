@@ -8,7 +8,7 @@ export default function ProductsContent({ products }: { products: Product[] }) {
   const { t, language } = useTranslation();
 
   return (
-    <div className="bg-brand-cream overflow-hidden">
+    <div className="bg-brand-cream">
       {/* Premium Products List Section */}
       <section className="mx-auto max-w-7xl px-4 py-24 animate-fade-in-up">
         

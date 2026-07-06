@@ -54,7 +54,7 @@ export default function ProductDetailContent({
                 src={product.imageUrl}
                 alt={language === "en" ? product.nameEn : product.nameUr}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 priority
                 sizes="(max-w-lg) 100vw, 600px"
               />
