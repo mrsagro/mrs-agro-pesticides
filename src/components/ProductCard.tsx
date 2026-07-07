@@ -38,11 +38,10 @@ export default function ProductCard({ product }: { product: Product }) {
       {/* Product Details Section */}
       <div className="flex flex-col flex-1 p-6 sm:p-8 text-start">
         
-        {/* Variety Pill Badge */}
+        {/* Category Pill Badge */}
         <div className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-brand-dark-green/10 px-3 py-1 text-xs font-semibold text-brand-dark-green self-start font-work-sans">
           <span className="h-1.5 w-1.5 rounded-full bg-brand-light-green animate-pulse" />
-          <span className="opacity-90">{t("products.varietyLabel")}:</span>
-          <span className="font-bold">{language === "en" ? product.varietyEn : product.varietyUr}</span>
+          <span className="font-bold">{language === "en" ? product.categoryEn : product.categoryUr}</span>
         </div>
 
         <h3 className="mb-3 text-xl font-bold text-brand-dark-green font-fraunces leading-tight transition-colors duration-300 group-hover:text-brand-orange">
