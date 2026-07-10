@@ -1,38 +1,56 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/useTranslation";
 import ProductCard from "@/components/ProductCard";
 import type { Product } from "@/lib/products";
 
 export default function ProductsContent({ products }: { products: Product[] }) {
-  const { t, language } = useTranslation();
+  const { language } = useTranslation();
+  const isUrdu = language === "ur";
 
   return (
-    <div className="bg-brand-cream">
-      {/* Premium Products List Section */}
-      <section className="mx-auto max-w-7xl px-4 py-24 animate-fade-in-up">
-        
-        {/* Header Block */}
-        <div className="mb-16 text-center">
-          <span className="mb-3 text-xs uppercase tracking-widest text-brand-wheat-gold font-bold font-work-sans block">
-            {language === "ur" ? "پریمیم بیج کی اقسام" : "Premium Certified Varieties"}
-          </span>
-          <h1 className="mb-6 text-4xl sm:text-5xl font-bold text-brand-dark-green font-fraunces leading-tight">
-            {t("products.pageTitle")}
-          </h1>
-          <div className="mx-auto mb-6 h-0.5 w-12 bg-brand-orange" />
-          <p className="mx-auto max-w-3xl text-lg sm:text-xl text-brand-charcoal/80 leading-relaxed font-light">
-            {t("products.pageSubtitle")}
-          </p>
+    <div className="min-h-screen bg-gradient-to-b from-white to-brand-cream">
+      <section className="relative pt-32 pb-16 lg:pt-40 lg:pb-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-dark-green/5 via-transparent to-transparent" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-sm font-bold tracking-[0.2em] uppercase text-brand-wheat-gold mb-4"
+          >
+            {isUrdu ? "ہماری مصنوعات" : "Our Products"}
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-4xl lg:text-6xl font-bold text-brand-dark-green font-fraunces leading-tight mb-6"
+          >
+            {isUrdu ? "اعلیٰ معیار کی زرعی مصنوعات" : "Premium Crop Protection"}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="text-brand-charcoal/50 text-lg max-w-2xl mx-auto leading-relaxed"
+          >
+            {isUrdu
+              ? "ہماری مصنوعات کی رینج دیکھیں، جو پاکستان کے متنوع زرعی علاقوں کے لیے تیار کی گئی ہیں۔"
+              : "Explore our range of certified pesticide products, carefully formulated for Pakistan's diverse growing regions."}
+          </motion.p>
         </div>
+      </section>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+      <section className="pb-28 lg:pb-36">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {products.map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
+            ))}
+          </div>
         </div>
-        
       </section>
     </div>
   );

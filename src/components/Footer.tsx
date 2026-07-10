@@ -2,142 +2,175 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { useTranslation } from "@/lib/useTranslation";
 import { contactInfo } from "@/lib/contactInfo";
 
 export default function Footer() {
   const { t, language } = useTranslation();
-  const year = new Date().getFullYear();
+  const isUrdu = language === "ur";
   const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const [subError, setSubError] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    setStatus("loading");
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({ email }),
       });
-      if (res.ok) {
-        setSubscribed(true);
-        setEmail("");
-      } else {
-        setSubError(true);
-      }
+      if (!res.ok) throw new Error();
+      setStatus("success");
+      setEmail("");
     } catch {
-      setSubError(true);
+      setStatus("error");
     }
   };
 
+  const quickLinks = [
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about" },
+    { label: "Products", href: "/products" },
+    { label: "Knowledge Center", href: "/knowledge-center" },
+    { label: "Franchise", href: "/franchise" },
+    { label: "Contact", href: "/contact" },
+  ];
+
   return (
-    <footer className="mt-auto bg-brand-dark-green text-brand-cream border-t border-brand-wheat-gold/20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-field-pattern opacity-[0.015] pointer-events-none" />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-start text-start mb-12">
-          
-          <div className="md:col-span-5 space-y-4">
-            <h3 className="text-2xl font-bold font-fraunces text-brand-cream">
-              {t("footer.companyName")}
-            </h3>
-            <p className="text-sm leading-relaxed text-brand-cream/70 font-light max-w-sm font-work-sans">
-              {language === "ur"
-                ? "پاکستان بھر میں کاشتکاروں کو پریمium اور اعلیٰ پیداواری مصنوعات کی فراہمی۔"
-                : "Empowering Pakistan's agricultural community with certified, high-quality crop protection solutions."}
+    <footer className="relative bg-gradient-to-b from-[#0A1F0C] to-[#071308] text-white overflow-hidden">
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjAgMHYyMEgwdjBIMjB2MjBIMjBWMjBoMjB2MEgyMHoiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMTUpIi8+PC9zdmc+')] opacity-40" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12 pt-20 lg:pt-28 pb-16 lg:pb-20">
+          {/* Brand */}
+          <div className="lg:col-span-2">
+            <Link href="/" className="flex items-center gap-3 mb-5 min-w-0">
+              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-white/10">
+                <Image
+                  src="/images/logo.jpeg"
+                  alt={t("nav.logoAlt")}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-xl font-bold text-white font-fraunces tracking-tight leading-tight whitespace-nowrap">
+                  MRS Agro Chemicals
+                </span>
+              </div>
+            </Link>
+            <p className="text-white/40 text-sm leading-relaxed max-w-sm mb-6">
+              {isUrdu
+                ? "پاکستان کے کسانوں کے لیے معیاری اور قابلِ اعتماد زرعی حل فراہم کرنے والے۔"
+                : "Premium quality pesticides and crop protection solutions for farmers across Pakistan."}
             </p>
           </div>
 
-          <div className="md:col-span-3 space-y-4">
-            <h4 className="text-sm font-bold text-brand-wheat-gold uppercase tracking-widest font-work-sans">
-              {language === "ur" ? "فوری روابط" : "Quick Navigation"}
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-sm font-bold tracking-[0.15em] uppercase text-brand-wheat-gold/60 mb-6">
+              {isUrdu ? "فوری روابط" : "Quick Links"}
             </h4>
-            <ul className="space-y-2 text-sm font-work-sans font-medium text-brand-cream/80">
-              {[
-                { key: "home", href: "/" },
-                { key: "about", href: "/about" },
-                { key: "products", href: "/products" },
-                { key: "franchise", href: "/franchise" },
-                { key: "contact", href: "/contact" },
-              ].map(({ key, href }) => (
-                <li key={key}>
-                  <Link href={href} className="hover:text-brand-orange hover:translate-x-0.5 transition-all duration-300 inline-block">
-                    {t(`nav.${key}`)}
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-white/50 hover:text-brand-wheat-gold transition-colors duration-200"
+                  >
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="md:col-span-4 space-y-4">
-            <h4 className="text-sm font-bold text-brand-wheat-gold uppercase tracking-widest font-work-sans">
-              {language === "ur" ? "رابطہ کی معلومات" : "Primary Channels"}
+          {/* Contact */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <h4 className="text-sm font-bold tracking-[0.15em] uppercase text-brand-wheat-gold/60 mb-6">
+              {isUrdu ? "رابطہ" : "Contact"}
             </h4>
-            <div className="space-y-3 text-sm text-brand-cream/85 font-work-sans">
-              <a href={contactInfo.phoneLink} className="flex items-center gap-3 group hover:text-brand-orange transition-colors">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 group-hover:bg-brand-orange/15 transition-colors text-brand-orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            <ul className="space-y-4">
+              <li>
+                <a href={contactInfo.phoneLink} className="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-brand-wheat-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                   </svg>
-                </div>
-                <span>{contactInfo.phone}</span>
-              </a>
-
-              <a href={contactInfo.whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group hover:text-brand-orange transition-colors">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 group-hover:bg-brand-orange/15 transition-colors text-brand-orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  <span>{isUrdu ? contactInfo.phone : contactInfo.phone}</span>
+                </a>
+              </li>
+              <li>
+                <a href={contactInfo.whatsappLink} target="_blank" rel="noopener noreferrer" className="text-sm text-white/50 hover:text-white transition-colors duration-200 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-green-400 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                   </svg>
-                </div>
-                <span>{t("footer.whatsapp")}</span>
-              </a>
-
-              <a href={contactInfo.emailLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group hover:text-brand-orange transition-colors">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 group-hover:bg-brand-orange/15 transition-colors text-brand-orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <span>{contactInfo.email}</span>
-              </a>
-            </div>
+                  <span className="hover:text-white transition-colors">{isUrdu ? "واٹس ایپ" : "WhatsApp"}</span>
+                </a>
+              </li>
+              <li>
+                <a href={contactInfo.emailLink} className="text-sm text-white/50 hover:text-white transition-colors duration-200 block">
+                  <span className="text-xs text-white/30 block mb-0.5">{t("contact.emailLabel")}</span>
+                  {contactInfo.email}
+                </a>
+              </li>
+              <li className="pt-2">
+                <p className="text-xs text-white/30 block mb-0.5">{t("contact.addressLabel")}</p>
+                <p className="text-sm text-white/50 leading-relaxed">{contactInfo.address}</p>
+              </li>
+            </ul>
           </div>
-
         </div>
 
-        <div className="border-t border-brand-wheat-gold/15 pt-8 pb-6">
-          <div className="max-w-md mx-auto mb-8">
-            <h4 className="text-sm font-bold text-brand-wheat-gold uppercase tracking-widest font-work-sans mb-3 text-center">
-              {language === "ur" ? "ہمارے نیوز لیٹر کو سبسکرائب کریں" : "Subscribe to Our Newsletter"}
-            </h4>
-            <form onSubmit={handleSubscribe} className="flex gap-2">
+        {/* Newsletter + Bottom */}
+        <div className="border-t border-white/5 pt-10 pb-8 lg:pt-12 lg:pb-10">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h4 className="text-base font-semibold text-white mb-1">
+                {isUrdu ? "ہمارے نیوز لیٹر کو سبسکرائب کریں" : "Subscribe to our Newsletter"}
+              </h4>
+              <p className="text-sm text-white/30">
+                {isUrdu ? "نئی مصنوعات اور زرعی مشورے کے لیے" : "Get the latest updates and agri insights."}
+              </p>
+            </div>
+            <form onSubmit={handleSubscribe} className="flex gap-3">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t("newsletter.placeholder")}
                 required
-                className="flex-1 rounded-xl border border-brand-wheat-gold/20 bg-white/10 px-4 py-2.5 text-sm text-brand-cream placeholder:text-brand-cream/40 focus:outline-none focus:ring-2 focus:ring-brand-orange/30 font-work-sans"
+                className="flex-1 rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder-white/30 outline-none focus:border-brand-wheat-gold/40 transition-colors"
               />
               <button
                 type="submit"
-                className="rounded-xl bg-brand-orange px-5 py-2.5 text-sm font-bold text-brand-cream transition-all hover:bg-brand-orange/95 font-work-sans cursor-pointer"
+                disabled={status === "loading"}
+                className="rounded-xl bg-brand-wheat-gold px-6 py-3 text-sm font-bold text-[#0A1F0C] transition-all hover:bg-brand-wheat-gold/90 disabled:opacity-50 shrink-0"
               >
-                {t("newsletter.button")}
+                {status === "loading" ? "..." : t("newsletter.button")}
               </button>
             </form>
-            {subscribed && (
-              <p className="mt-2 text-xs text-green-400 text-center">{t("newsletter.success")}</p>
+            {status === "success" && (
+              <motion.p initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-green-400 lg:col-span-2 -mt-4">
+                {t("newsletter.success")}
+              </motion.p>
             )}
-            {subError && (
-              <p className="mt-2 text-xs text-red-400 text-center">{t("newsletter.error")}</p>
+            {status === "error" && (
+              <motion.p initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-red-400 lg:col-span-2 -mt-4">
+                {t("newsletter.error")}
+              </motion.p>
             )}
           </div>
-        </div>
-
-        <div className="border-t border-brand-wheat-gold/15 pt-8 text-center text-xs tracking-wider uppercase font-semibold text-brand-cream/50 font-work-sans">
-          &copy; {year} {t("footer.companyName")}. {t("footer.rights")}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-10 pt-8 border-t border-white/5">
+            <p className="text-xs text-white/30">
+              © {new Date().getFullYear()} MRS Agro Chemicals. {t("footer.rights")}
+            </p>
+            <p className="text-xs text-white/20">
+              {isUrdu ? "اعلیٰ معیار کی زرعی مصنوعات" : "Premium Quality Pesticides"}
+            </p>
+          </div>
         </div>
       </div>
     </footer>

@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "super-secret-jwt-key-change-in-production-123456"
-);
+const JWT_SECRET = process.env.JWT_SECRET
+  ? new TextEncoder().encode(process.env.JWT_SECRET)
+  : null;
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -12,6 +12,10 @@ export async function middleware(request: NextRequest) {
   if (pathname.startsWith("/admin") || pathname.startsWith("/api/admin")) {
     if (pathname === "/admin/login" || pathname === "/api/admin/login" || pathname === "/api/admin/logout") {
       return NextResponse.next();
+    }
+
+    if (!JWT_SECRET) {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
     }
 
     const token = request.cookies.get("admin_token")?.value;

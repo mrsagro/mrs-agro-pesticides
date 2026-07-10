@@ -1,106 +1,198 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/lib/LanguageContext";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "@/lib/useTranslation";
+import { useLanguage } from "@/lib/LanguageContext";
 
 const navItems: { key: string; href: string }[] = [
   { key: "home", href: "/" },
   { key: "about", href: "/about" },
   { key: "products", href: "/products" },
+  { key: "knowledgeCenter", href: "/knowledge-center" },
   { key: "franchise", href: "/franchise" },
   { key: "contact", href: "/contact" },
 ];
 
 export default function Header() {
-  const { language, toggleLanguage } = useLanguage();
-  const { t } = useTranslation();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { t, language } = useTranslation();
+  const { toggleLanguage } = useLanguage();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const isUrdu = language === "ur";
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  const transparent = isHome && !scrolled;
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-brand-dark-green/90 text-brand-cream border-b border-brand-wheat-gold/20 shadow-lg">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 py-4">
-        
-        <div className="flex items-center gap-3">
-          <Link href="/" className="group flex items-center gap-3">
-            <div className="relative h-12 w-12 overflow-hidden rounded-full border border-brand-wheat-gold/30 p-0.5 bg-white/10 shadow-md transition-transform group-hover:scale-105 duration-300">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        transparent
+          ? "bg-transparent"
+          : "bg-white/80 backdrop-blur-xl shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+      }`}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 group min-w-0">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl">
               <Image
                 src="/images/logo.jpeg"
                 alt={t("nav.logoAlt")}
                 fill
-                className="object-cover rounded-full"
-                sizes="44px"
+                className="object-contain"
               />
             </div>
-            <span className="hidden sm:inline-block font-fraunces font-bold text-lg text-brand-cream tracking-wide group-hover:text-brand-orange transition-colors">
-              {t("footer.companyName")}
-            </span>
+            <div className="flex flex-col min-w-0">
+              <span
+                className={`text-2xl font-bold tracking-tight transition-colors duration-300 leading-tight whitespace-nowrap ${
+                  transparent ? "text-white" : "text-brand-dark-green"
+                } font-fraunces`}
+              >
+                MRS Agro Chemicals
+              </span>
+            </div>
           </Link>
-        </div>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {navItems.map(({ key, href }) => (
-            <Link
-              key={key}
-              href={href}
-              className="text-sm font-medium tracking-wide transition-colors hover:text-brand-orange nav-link-hover py-1"
-            >
-              {t(`nav.${key}`)}
-            </Link>
-          ))}
-        </nav>
+          <nav className="hidden lg:flex items-center gap-1">
+            {navItems.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.key}
+                  href={item.href}
+                  className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+                    transparent
+                      ? "text-white/80 hover:text-white hover:bg-white/10"
+                      : active
+                        ? "text-brand-dark-green bg-brand-dark-green/5"
+                        : "text-brand-charcoal/70 hover:text-brand-dark-green hover:bg-brand-dark-green/5"
+                  }`}
+                >
+                  {t(`nav.${item.key}` as any)}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className={`absolute inset-0 rounded-full ${
+                        transparent
+                          ? "bg-white/15"
+                          : "bg-brand-dark-green/8"
+                      } -z-10`}
+                    />
+                  )}
+                </Link>
+              );
+            })}
+            <div className="ml-4 pl-4 border-l border-brand-dark-green/10">
+              <button
+                onClick={toggleLanguage}
+                className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 ${
+                  transparent
+                    ? "text-white/80 hover:text-white hover:bg-white/10 border border-white/20"
+                    : "text-brand-dark-green border border-brand-dark-green/20 hover:bg-brand-dark-green/5"
+                }`}
+              >
+                {isUrdu ? "English" : "اردو"}
+              </button>
+            </div>
+          </nav>
 
-        <div className="flex items-center gap-4">
           <button
-            onClick={toggleLanguage}
-            className="rounded-full border border-brand-wheat-gold/30 px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all hover:bg-brand-orange/15 hover:border-brand-orange cursor-pointer font-work-sans text-brand-cream"
-          >
-            {language === "en" ? t("nav.toggleToUrdu") : t("nav.toggleToEnglish")}
-          </button>
-
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="flex flex-col justify-center items-center gap-1.5 md:hidden w-8 h-8 rounded-full border border-brand-wheat-gold/25 bg-white/5 hover:bg-white/10 transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className={`lg:hidden relative h-10 w-10 flex items-center justify-center rounded-full transition-colors ${
+              transparent
+                ? "text-white hover:bg-white/10"
+                : "text-brand-charcoal hover:bg-brand-dark-green/5"
+            }`}
             aria-label="Toggle menu"
           >
-            <span
-              className={`block h-0.5 w-4 bg-brand-cream transition-transform duration-300 ${
-                menuOpen ? "translate-y-1 rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-4 bg-brand-cream transition-opacity duration-300 ${
-                menuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-4 bg-brand-cream transition-transform duration-300 ${
-                menuOpen ? "-translate-y-1 -rotate-45" : ""
-              }`}
-            />
+            <div className="flex flex-col gap-1.5">
+              <motion.span
+                animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                className={`block h-0.5 w-5 rounded-full transition-colors ${
+                  transparent ? "bg-white" : "bg-brand-charcoal"
+                }`}
+              />
+              <motion.span
+                animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
+                className={`block h-0.5 w-5 rounded-full transition-colors ${
+                  transparent ? "bg-white" : "bg-brand-charcoal"
+                }`}
+              />
+              <motion.span
+                animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                className={`block h-0.5 w-5 rounded-full transition-colors ${
+                  transparent ? "bg-white" : "bg-brand-charcoal"
+                }`}
+              />
+            </div>
           </button>
         </div>
       </div>
 
-      {menuOpen && (
-        <nav className="flex flex-col border-t border-brand-wheat-gold/15 bg-brand-dark-green/95 backdrop-blur-lg px-6 pb-6 pt-3 md:hidden space-y-4 shadow-xl">
-          {navItems.map(({ key, href }) => (
-            <Link
-              key={key}
-              href={href}
-              onClick={() => setMenuOpen(false)}
-              className="py-2 text-base font-semibold border-b border-brand-wheat-gold/10 hover:text-brand-orange transition-colors flex items-center justify-between"
-            >
-              <span>{t(`nav.${key}`)}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-brand-wheat-gold rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          ))}
-        </nav>
-      )}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:hidden overflow-hidden bg-white/95 backdrop-blur-xl border-t border-brand-dark-green/5"
+          >
+            <div className="px-4 py-6 space-y-1">
+              {navItems.map((item, i) => {
+                const active = pathname === item.href;
+                return (
+                  <motion.div
+                    key={item.key}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                        active
+                          ? "bg-brand-dark-green/8 text-brand-dark-green"
+                          : "text-brand-charcoal/70 hover:bg-brand-dark-green/5 hover:text-brand-dark-green"
+                      }`}
+                    >
+                      {t(`nav.${item.key}` as any)}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navItems.length * 0.05 }}
+                className="pt-3"
+              >
+                <button
+                  onClick={toggleLanguage}
+                  className="w-full px-4 py-3 rounded-xl text-sm font-medium border border-brand-dark-green/15 text-brand-dark-green hover:bg-brand-dark-green/5 transition-all"
+                >
+                  {isUrdu ? "Switch to English" : "اردو میں دیکھیں"}
+                </button>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

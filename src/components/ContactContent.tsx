@@ -1,192 +1,175 @@
 "use client";
 
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { useTranslation } from "@/lib/useTranslation";
 import { contactInfo } from "@/lib/contactInfo";
 import ContactForm from "@/components/ContactForm";
-import type { FormField } from "@/components/ContactForm";
 
-const contactFields: FormField[] = [
-  { name: "name", label: "", type: "text", required: true },
-  { name: "email", label: "", type: "email", required: true },
-  { name: "message", label: "", type: "textarea", required: true },
-];
+function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export default function ContactContent() {
   const { t, language } = useTranslation();
+  const isUrdu = language === "ur";
 
-  const fieldsWithLabels = contactFields.map((f) => ({
-    ...f,
-    label: t(`contact.form${f.name.charAt(0).toUpperCase() + f.name.slice(1)}Label`),
-  }));
+  const contactChannels = [
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+        </svg>
+      ),
+      title: t("contact.phoneLabel"),
+      value: contactInfo.phone,
+      href: contactInfo.phoneLink,
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      ),
+      title: isUrdu ? "واٹس ایپ" : "WhatsApp",
+      value: isUrdu ? "واٹس ایپ پر رابطہ کریں" : "Chat on WhatsApp",
+      href: contactInfo.whatsappLink,
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+        </svg>
+      ),
+      title: t("contact.emailLabel"),
+      value: contactInfo.email,
+      href: contactInfo.emailLink,
+    },
+  ];
 
   return (
-    <div className="bg-brand-cream">
-      {/* Page Hero Section */}
-      <section className="mx-auto max-w-7xl px-4 py-12 lg:py-16 lg:min-h-[calc(100vh-80px)] min-h-[550px] flex flex-col justify-start animate-fade-in-up">
-        
-        {/* Main Title Block */}
-        <div className="mb-16 text-center">
-          <span className="mb-3 text-xs uppercase tracking-widest text-brand-wheat-gold font-bold font-work-sans block">
-            {language === "ur" ? "ہم سے رابطہ کریں" : "Get In Touch"}
-          </span>
-          <h1 className="mb-6 text-4xl sm:text-5xl font-bold text-brand-dark-green font-fraunces leading-tight">
-            {t("contact.pageTitle")}
-          </h1>
-          <div className="mx-auto mb-6 h-0.5 w-12 bg-brand-orange" />
-          <p className="mx-auto max-w-3xl text-lg sm:text-xl text-brand-charcoal/80 leading-relaxed font-light">
-            {t("contact.pageSubtitle")}
-          </p>
+    <div className="min-h-screen">
+      {/* Hero */}
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-gradient-to-br from-brand-dark-green to-[#0F2B12]">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMjAgMHYyMEgwdjBIMjB2MjBIMjBWMjBoMjB2MEgyMHoiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMjUpIi8+PC9zdmc+')] opacity-30" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-sm font-bold tracking-[0.2em] uppercase text-brand-wheat-gold mb-4"
+          >
+            {isUrdu ? "ہم سے رابطہ کریں" : "Contact Us"}
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl lg:text-6xl font-bold text-white font-fraunces leading-tight"
+          >
+            {isUrdu ? "ہم آپ کی مدد کے لیے حاضر ہیں" : "Get in Touch"}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-white/50 text-lg max-w-2xl mx-auto mt-6 leading-relaxed"
+          >
+            {isUrdu
+              ? "کسی بھی سوال یا معلومات کے لیے ہم سے رابطہ کرنے میں تامل نہ کریں۔"
+              : "We'd love to hear from you. Reach out through any of the channels below."}
+          </motion.p>
         </div>
+      </section>
 
-        {/* Asymmetrical Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-start">
-          
-          {/* Column 1: Contact Details Stack */}
-          <div className="lg:col-span-5 space-y-6">
-            <div className="border-s-4 border-brand-light-green ps-5 mb-8 py-1">
-              <h2 className="text-2xl sm:text-3xl font-bold text-brand-dark-green font-fraunces leading-tight">
-                {language === "ur" ? "رابطہ کی تفصیلات" : "Contact Details"}
-              </h2>
+      {/* Content */}
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
+            {/* Left - Contact Details */}
+            <div className="lg:col-span-2 space-y-8">
+              {contactChannels.map((channel, i) => (
+                <FadeUp key={i} delay={i * 0.1}>
+                  <a
+                    href={channel.href}
+                    className="group flex items-start gap-5 p-5 rounded-2xl bg-gradient-to-b from-brand-cream to-white border border-brand-dark-green/5 transition-all duration-300 hover:shadow-[0_10px_30px_-10px_rgba(27,94,32,0.1)] hover:-translate-y-0.5"
+                  >
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-dark-green/10 text-brand-dark-green group-hover:bg-brand-dark-green group-hover:text-white transition-all duration-300">
+                      {channel.icon}
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold tracking-widest uppercase text-brand-charcoal/40 mb-1">{channel.title}</p>
+                      <p className="text-sm font-medium text-brand-charcoal group-hover:text-brand-dark-green transition-colors">
+                        {channel.value}
+                      </p>
+                    </div>
+                  </a>
+                </FadeUp>
+              ))}
+
+              <FadeUp delay={0.3}>
+                <div className="p-5 rounded-2xl bg-gradient-to-b from-brand-cream to-white border border-brand-dark-green/5">
+                  <h4 className="text-xs font-bold tracking-widest uppercase text-brand-wheat-gold mb-3">
+                    {isUrdu ? "ہمارا پتہ" : "Our Address"}
+                  </h4>
+                  <p className="text-sm text-brand-charcoal/60 leading-relaxed mb-4">
+                    {contactInfo.address}
+                  </p>
+                  <div className="w-full h-48 sm:h-56 rounded-xl overflow-hidden border border-brand-dark-green/10">
+                    <iframe
+                      src={`https://maps.google.com/maps?q=${contactInfo.addressMapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen={false}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="MRS Agro Chemicals Location"
+                    />
+                  </div>
+                </div>
+              </FadeUp>
             </div>
-            
-            <div className="space-y-6">
-              
-              {/* Phone Card */}
-              <div className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
-                    {t("contact.phoneLabel")}
+
+            {/* Right - Form */}
+            <div className="lg:col-span-3">
+              <FadeUp delay={0.15}>
+                <div className="rounded-[32px] bg-gradient-to-b from-brand-cream to-white border border-brand-dark-green/5 p-8 lg:p-12 shadow-xl shadow-brand-dark-green/5">
+                  <h3 className="text-2xl lg:text-3xl font-bold text-brand-dark-green font-fraunces mb-2">
+                    {t("contact.formHeading")}
                   </h3>
-                  <a
-                    href={contactInfo.phoneLink}
-                    className="text-base text-brand-charcoal hover:text-brand-orange transition-colors font-medium font-work-sans"
-                  >
-                    {contactInfo.phone}
-                  </a>
-                </div>
-              </div>
-
-              {/* WhatsApp Card */}
-              <div className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
-                    {t("contact.whatsappLabel")}
-                  </h3>
-                  <a
-                    href={contactInfo.whatsappLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-base text-brand-charcoal hover:text-brand-orange transition-colors font-medium font-work-sans"
-                  >
-                    {t("footer.whatsapp")}
-                  </a>
-                </div>
-              </div>
-
-              {/* Email Card */}
-              <div className="group flex gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
-                    {t("contact.emailLabel")}
-                  </h3>
-                  <a
-                    href={contactInfo.emailLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-base text-brand-charcoal hover:text-brand-orange transition-colors font-medium font-work-sans"
-                  >
-                    {contactInfo.email}
-                  </a>
-                </div>
-              </div>
-
-              {/* Address Card */}
-              <div className="flex flex-col gap-4 rounded-2xl border border-brand-wheat-gold/20 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:border-brand-light-green/40">
-                <div className="flex gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-wheat-gold/10 text-brand-orange">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-brand-dark-green uppercase tracking-wider font-work-sans mb-1">
-                      {t("contact.addressLabel")}
-                    </h3>
-                    <p className="text-base text-brand-charcoal leading-relaxed font-light font-work-sans">
-                      {contactInfo.address}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Google Maps Embed */}
-                <div className="rounded-xl overflow-hidden shadow-md">
-                  <iframe
-                    src={`https://www.google.com/maps?q=${contactInfo.addressMapQuery}&output=embed`}
-                    width="100%"
-                    height="300"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="MRS Agro Chemicals Location"
+                  <p className="text-brand-charcoal/50 text-sm mb-8">
+                    {isUrdu
+                      ? "ہمیں ایک پیغام بھیجیں اور ہم جلد از جلد جواب دیں گے۔"
+                      : "Send us a message and we'll get back to you within 24 hours."}
+                  </p>
+                  <ContactForm
+                    endpoint="/api/contact"
+                    fields={[
+                      { name: "name", label: t("contact.formNameLabel"), type: "text" },
+                      { name: "email", label: t("contact.formEmailLabel"), type: "email" },
+                      { name: "message", label: t("contact.formMessageLabel"), type: "textarea" },
+                    ]}
+                    submitLabel={t("contact.formSubmitButton")}
+                    successMessage={t("contact.formSuccessMessage")}
+                    errorMessage={t("contact.formErrorMessage")}
                   />
                 </div>
-
-                {/* Get Directions Button */}
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${contactInfo.addressMapQuery}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-brand-orange px-6 py-3 text-xs font-bold text-brand-cream transition-all duration-300 hover:bg-brand-orange/95 hover:scale-103 shadow-md active:scale-95 font-work-sans"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  <span>{language === "ur" ? "راستہ دیکھیں" : "Get Directions"}</span>
-                </a>
-              </div>
-
+              </FadeUp>
             </div>
           </div>
-
-          {/* Column 2: Direct message form card */}
-          <div className="lg:col-span-7">
-            <div className="rounded-3xl border border-brand-wheat-gold/25 bg-white p-8 sm:p-10 shadow-xl relative overflow-hidden">
-              {/* Subtle top visual accent strip */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-brand-orange" />
-              
-              <h3 className="mb-6 text-2xl font-bold text-brand-dark-green font-fraunces">
-                {t("contact.formHeading")}
-              </h3>
-              
-              <ContactForm
-                endpoint="/api/contact"
-                submitLabel={t("contact.formSubmitButton")}
-                successMessage={t("contact.formSuccessMessage")}
-                errorMessage={t("contact.formErrorMessage")}
-                fields={fieldsWithLabels}
-              />
-            </div>
-          </div>
-
         </div>
-
       </section>
     </div>
   );

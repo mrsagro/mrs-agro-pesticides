@@ -3,9 +3,9 @@ import bcrypt from "bcryptjs";
 import { SignJWT } from "jose";
 import { prisma } from "@/lib/prisma";
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "super-secret-jwt-key-change-in-production-123456"
-);
+const JWT_SECRET = process.env.JWT_SECRET
+  ? new TextEncoder().encode(process.env.JWT_SECRET)
+  : null;
 
 export async function POST(request: Request) {
   try {
@@ -37,6 +37,13 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!JWT_SECRET) {
+      return NextResponse.json(
+        { error: "Server configuration error." },
+        { status: 500 }
+      );
+    }
+
     const token = await new SignJWT({ userId: user.id, username: user.username })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("7d")
@@ -47,7 +54,7 @@ export async function POST(request: Request) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      path: "/admin",
+      path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
 

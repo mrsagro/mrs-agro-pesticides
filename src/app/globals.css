@@ -2,18 +2,18 @@
 
 :root {
   --background: #FAF9F6;
-  --foreground: #2B2B2B;
+  --foreground: #1A1A1A;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-brand-dark-green: #1B5E20;
-  --color-brand-light-green: #7CB342;
-  --color-brand-orange: #F5A623;
-  --color-brand-cream: #FAF9F6;
-  --color-brand-charcoal: #2B2B2B;
-  --color-brand-wheat-gold: #D4A017;
+  --color-brand-dark-green: #145A2C;
+  --color-brand-light-green: #228B34;
+  --color-brand-orange: #E8930E;
+  --color-brand-cream: #F8F6F1;
+  --color-brand-charcoal: #1C1C1E;
+  --color-brand-wheat-gold: #C49A11;
   --font-fraunces: var(--font-fraunces);
   --font-work-sans: var(--font-work-sans);
   --font-nastaliq: var(--font-nastaliq);
@@ -24,7 +24,6 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-work-sans), sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 html[lang="en"] h1,
@@ -54,48 +53,125 @@ html[lang="ur"] .font-urdu-heading {
   font-weight: 700;
 }
 
-.bg-field-pattern {
-  background-image: repeating-linear-gradient(
-    45deg,
-    #7CB342 0px,
-    #7CB342 12px,
-    #F5A623 12px,
-    #F5A623 24px
-  );
+html[lang="ur"] .rtl-flip {
+  transform: scaleX(-1);
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* ===== ADMIN PANEL STYLES (unchanged) ===== */
+.admin-dark {
+  --admin-bg: #0f0f13;
+  --admin-surface: #1a1a23;
+  --admin-surface-hover: #22222e;
+  --admin-border: #2a2a3a;
+  --admin-text: #e8e8ed;
+  --admin-text-secondary: #9898a8;
+  --admin-text-muted: #6b6b7b;
+  --admin-sidebar: #12121a;
+  --admin-sidebar-hover: #1e1e2a;
+  --admin-sidebar-active: #1B5E20;
+  --admin-card: #1a1a23;
+  --admin-input: #22222e;
+  --admin-input-border: #2a2a3a;
+  --admin-hover: #22222e;
+}
+
+.admin-light {
+  --admin-bg: #f6f6f9;
+  --admin-surface: #ffffff;
+  --admin-surface-hover: #f0f0f5;
+  --admin-border: #e4e4ed;
+  --admin-text: #16161a;
+  --admin-text-secondary: #5a5a6e;
+  --admin-text-muted: #9494a8;
+  --admin-sidebar: #ffffff;
+  --admin-sidebar-hover: #f0f0f5;
+  --admin-sidebar-active: #1B5E20;
+  --admin-card: #ffffff;
+  --admin-input: #ffffff;
+  --admin-input-border: #e4e4ed;
+  --admin-hover: #f0f0f5;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateY(-16px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastSlideOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-16px) scale(0.95); }
+}
+
+.toast-enter { animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.toast-exit { animation: toastSlideOut 0.2s ease forwards; }
+
+.admin-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.admin-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.admin-scrollbar::-webkit-scrollbar-thumb { background: #c4c4d0; border-radius: 3px; }
+.admin-dark .admin-scrollbar::-webkit-scrollbar-thumb { background: #3a3a4a; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e4e4ed 25%, #f0f0f5 50%, #e4e4ed 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+.admin-dark .skeleton {
+  background: linear-gradient(90deg, #2a2a3a 25%, #3a3a4a 50%, #2a2a3a 75%);
+  background-size: 200% 100%;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+/* Prevent overflow from large elements */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
 }
 
-.nav-link-hover {
-  position: relative;
-}
-.nav-link-hover::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #F5A623;
-  transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.nav-link-hover:hover::after {
-  width: 100%;
-}
-[dir="rtl"] .nav-link-hover::after {
-  left: auto;
-  right: 0;
+/* Admin login isolation - no public nav/footer */
+[data-admin-login] {
+  margin: 0;
+  padding: 0;
 }
