@@ -149,6 +149,7 @@ export default function AdminSubmissionsTable({
             ))}
           </div>
 
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/api/admin/submissions/export"
             className="inline-flex items-center gap-1.5 rounded-xl border border-stone-200 bg-white px-4 py-2 text-xs font-semibold text-stone-600 shadow-sm transition-colors hover:bg-stone-50 hover:text-stone-800"

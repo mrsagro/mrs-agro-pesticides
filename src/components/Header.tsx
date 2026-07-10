@@ -12,7 +12,6 @@ const navItems: { key: string; href: string }[] = [
   { key: "home", href: "/" },
   { key: "about", href: "/about" },
   { key: "products", href: "/products" },
-  { key: "knowledgeCenter", href: "/knowledge-center" },
   { key: "franchise", href: "/franchise" },
   { key: "contact", href: "/contact" },
 ];

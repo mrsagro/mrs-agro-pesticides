@@ -179,6 +179,7 @@ export default function AdminInquiriesClient({
           })}
         </div>
 
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/api/admin/submissions/export"
           className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition-all hover:-translate-y-0.5"
