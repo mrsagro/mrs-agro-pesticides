@@ -1,4 +1,5 @@
 import { contactInfo } from "@/lib/contactInfo";
+import { products } from "@/lib/products";
 import AdminSettingsClient from "./AdminSettingsClient";
 
 export default async function AdminSettingsPage() {
@@ -22,6 +23,7 @@ export default async function AdminSettingsPage() {
     <AdminSettingsClient
       adminUser={adminUser}
       subscriberCount={subscriberCount}
+      productCount={products.length}
       contactInfo={contactInfo}
     />
   );

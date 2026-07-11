@@ -54,7 +54,7 @@ export default function AdminNewsletterClient({
   };
 
   const handleDelete = async (id: number) => {
-    // Optimistic update
+    const deleted = localSubs.find((s) => s.id === id);
     setLocalSubs((prev) => prev.filter((s) => s.id !== id));
     setSelectedIds((prev) => {
       const next = new Set(prev);
@@ -62,10 +62,10 @@ export default function AdminNewsletterClient({
       return next;
     });
     try {
-      await fetch(`/api/admin/subscribers/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/subscribers/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Delete failed");
     } catch {
-      // Revert on error
-      setLocalSubs(subscribers);
+      if (deleted) setLocalSubs((prev) => [...prev, deleted].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
     }
   };
 
@@ -247,8 +247,11 @@ export default function AdminNewsletterClient({
             </p>
             {selectedIds.size > 0 && (
               <button
-                onClick={() => {
-                  selectedIds.forEach((id) => handleDelete(id));
+                onClick={async () => {
+                  const ids = Array.from(selectedIds);
+                  for (const id of ids) {
+                    await handleDelete(id);
+                  }
                 }}
                 className="text-xs font-medium text-red-500 hover:text-red-400 transition-colors cursor-pointer"
               >

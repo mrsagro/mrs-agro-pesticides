@@ -5,10 +5,12 @@ import { useLanguage } from "@/lib/LanguageContext";
 export default function AdminSettingsClient({
   adminUser,
   subscriberCount,
+  productCount,
   contactInfo,
 }: {
   adminUser: { username: string } | null;
   subscriberCount: number;
+  productCount: number;
   contactInfo: {
     phone: string;
     email: string;
@@ -160,7 +162,7 @@ export default function AdminSettingsClient({
               <p className="text-xs font-medium uppercase tracking-wider mb-1" style={{ color: "var(--admin-text-muted)" }}>
                 {isUrdu ? "مصنوعات" : "Products"}
               </p>
-              <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>24</p>
+              <p className="text-sm font-semibold" style={{ color: "var(--admin-text)" }}>{productCount}</p>
               <p className="text-[10px]" style={{ color: "var(--admin-text-muted)" }}>{isUrdu ? "مختلف زمرے" : "Across multiple categories"}</p>
             </div>
             <div className="p-4 rounded-xl" style={{ backgroundColor: "var(--admin-surface)", border: "1px solid var(--admin-border)" }}>
