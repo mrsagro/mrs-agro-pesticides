@@ -29,13 +29,13 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
         className="group block h-full"
       >
         <div className="relative h-full rounded-3xl bg-white border border-brand-dark-green/5 overflow-hidden transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(27,94,32,0.18)] hover:-translate-y-1.5">
-          <div className="relative aspect-[4/3] bg-gradient-to-br from-brand-cream via-white to-brand-wheat-gold/5 overflow-hidden">
+          <div className="relative aspect-[4/3] bg-gradient-to-br from-brand-cream via-white to-brand-wheat-gold/5">
             <Image
               src={product.imageUrl}
               alt={name}
               fill
-              className="object-contain p-6 lg:p-8 transition-all duration-700 group-hover:scale-110"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-contain p-4 sm:p-6 lg:p-8 transition-all duration-700 group-hover:scale-110"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute top-4 left-4">

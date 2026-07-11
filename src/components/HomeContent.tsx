@@ -206,7 +206,7 @@ export default function HomeContent() {
       </section>
 
       {/* ========== STATS BANNER ========== */}
-      <section className="relative -mt-20 z-10 pb-20">
+      <section className="relative -mt-10 sm:-mt-20 z-10 pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

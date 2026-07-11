@@ -94,7 +94,7 @@ export default function ProductDetailContent({ product }: { product: Product }) 
                   src={product.imageUrl}
                   alt={name}
                   fill
-                  className={`object-contain p-10 lg:p-14 transition-all duration-700 ${
+                  className={`object-contain p-6 sm:p-10 lg:p-14 transition-all duration-700 ${
                     zoomed ? "scale-150" : "group-hover:scale-105"
                   }`}
                   priority
@@ -182,7 +182,7 @@ export default function ProductDetailContent({ product }: { product: Product }) 
             <h2 className="text-2xl lg:text-3xl font-bold text-brand-dark-green font-fraunces mb-10">
               {isUrdu ? "متعلقہ مصنوعات" : "Related Products"}
             </h2>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((rp, i) => (
                 <motion.div
                   key={rp.id}
@@ -200,8 +200,8 @@ export default function ProductDetailContent({ product }: { product: Product }) 
                         src={rp.imageUrl}
                         alt={isUrdu ? rp.nameUr : rp.nameEn}
                         fill
-                        className="object-contain p-6 transition-transform duration-500 group-hover:scale-110"
-                        sizes="(max-width: 768px) 50vw, 33vw"
+                        className="object-contain p-3 sm:p-6 transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, 33vw"
                       />
                     </div>
                     <div className="p-4">

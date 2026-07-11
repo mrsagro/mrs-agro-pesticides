@@ -125,7 +125,7 @@ export default function AboutContent() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <FadeUp>
-              <div className="relative aspect-[4/3] lg:aspect-[3/3.5] rounded-[32px] overflow-hidden bg-gradient-to-br from-brand-cream via-white to-brand-wheat-gold/5 border border-brand-dark-green/5">
+              <div className="relative aspect-[3/4] sm:aspect-[4/3] lg:aspect-[3/3.5] rounded-[32px] overflow-hidden bg-gradient-to-br from-brand-cream via-white to-brand-wheat-gold/5 border border-brand-dark-green/5">
                 <Image
                   src="/images/ceo.jpeg"
                   alt={isUrdu ? "مالک عمرر رفیق" : "Malik Umer Rafique"}

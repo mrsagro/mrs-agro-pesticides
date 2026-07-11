@@ -87,7 +87,7 @@ export default function FranchiseContent() {
                 </p>
               </FadeUp>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   {
                     label: isUrdu ? "مقام" : "Location",
@@ -133,7 +133,7 @@ export default function FranchiseContent() {
             </div>
 
             <FadeUp delay={0.2}>
-              <div className="sticky top-28">
+              <div className="lg:sticky lg:top-28">
                 <div className="rounded-[32px] bg-white border border-brand-dark-green/5 p-8 lg:p-10 shadow-xl shadow-brand-dark-green/5">
                   <h3 className="text-2xl font-bold text-brand-dark-green font-fraunces mb-2">
                     {isUrdu ? "درخواست دیں" : "Apply Now"}

@@ -56,9 +56,9 @@ export default function Header() {
                 className="object-contain"
               />
             </div>
-            <div className="flex flex-col min-w-0">
+            <div className="flex flex-col min-w-0 overflow-hidden">
               <span
-                className={`text-2xl font-bold tracking-tight transition-colors duration-300 leading-tight whitespace-nowrap ${
+                className={`text-lg sm:text-2xl font-bold tracking-tight transition-colors duration-300 leading-tight truncate ${
                   transparent ? "text-white" : "text-brand-dark-green"
                 } font-fraunces`}
               >

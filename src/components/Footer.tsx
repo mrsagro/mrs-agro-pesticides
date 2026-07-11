@@ -152,12 +152,12 @@ export default function Footer() {
               </button>
             </form>
             {status === "success" && (
-              <motion.p initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-green-400 lg:col-span-2 -mt-4">
+              <motion.p initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-green-400 lg:col-span-2 lg:-mt-4">
                 {t("newsletter.success")}
               </motion.p>
             )}
             {status === "error" && (
-              <motion.p initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-red-400 lg:col-span-2 -mt-4">
+              <motion.p initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-red-400 lg:col-span-2 lg:-mt-4">
                 {t("newsletter.error")}
               </motion.p>
             )}
