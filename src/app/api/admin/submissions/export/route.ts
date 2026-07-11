@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 function escapeCsvField(value: string): string {
   if (value.includes(",") || value.includes('"') || value.includes("\n")) {
@@ -10,13 +9,20 @@ function escapeCsvField(value: string): string {
 
 export async function GET() {
   try {
-    const contacts = await prisma.contactSubmission.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+    let contacts: { createdAt: Date; name: string; email: string; message: string; status: string }[] = [];
+    let franchises: { createdAt: Date; name: string; phone: string; city: string; message: string | null; status: string }[] = [];
 
-    const franchises = await prisma.franchiseSubmission.findMany({
-      orderBy: { createdAt: "desc" },
-    });
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      contacts = await prisma.contactSubmission.findMany({
+        orderBy: { createdAt: "desc" },
+      });
+      franchises = await prisma.franchiseSubmission.findMany({
+        orderBy: { createdAt: "desc" },
+      });
+    } catch {
+      console.warn("Database unavailable for export");
+    }
 
     const headers = ["Date", "Type", "Name", "Contact Info", "Details", "Status"];
     const rows = [

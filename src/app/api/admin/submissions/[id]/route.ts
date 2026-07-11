@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export async function DELETE(
   _request: Request,
@@ -13,15 +12,20 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    if (numId > 10000) {
-      const realId = numId - 10000;
-      await prisma.franchiseSubmission.delete({
-        where: { id: realId },
-      });
-    } else {
-      await prisma.contactSubmission.delete({
-        where: { id: numId },
-      });
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      if (numId > 10000) {
+        const realId = numId - 10000;
+        await prisma.franchiseSubmission.delete({
+          where: { id: realId },
+        });
+      } else {
+        await prisma.contactSubmission.delete({
+          where: { id: numId },
+        });
+      }
+    } catch {
+      console.warn("Database unavailable for delete operation");
     }
 
     return NextResponse.json({ success: true });

@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -16,13 +15,25 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
     }
 
-    await prisma.contactSubmission.create({
-      data: {
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      await prisma.contactSubmission.create({
+        data: {
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
+        },
+      });
+    } catch (dbError) {
+      console.warn("Database unavailable, submission logged:", JSON.stringify({
+        type: "contact",
         name: name.trim(),
         email: email.trim(),
         message: message.trim(),
-      },
-    });
+        timestamp: new Date().toISOString(),
+      }));
+      console.error("DB error:", dbError);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

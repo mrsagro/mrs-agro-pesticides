@@ -1,18 +1,21 @@
-import { prisma } from "@/lib/prisma";
 import AdminNewsletterClient from "./AdminNewsletterClient";
 
 export default async function AdminNewsletterPage() {
-  const subscribers = await prisma.newsletterSubscriber.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  let subscribers: { id: number; email: string; createdAt: string }[] = [];
 
-  return (
-    <AdminNewsletterClient
-      subscribers={subscribers.map((s) => ({
-        id: s.id,
-        email: s.email,
-        createdAt: s.createdAt.toISOString(),
-      }))}
-    />
-  );
+  try {
+    const { prisma } = await import("@/lib/prisma");
+    const data = await prisma.newsletterSubscriber.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+    subscribers = data.map((s) => ({
+      id: s.id,
+      email: s.email,
+      createdAt: s.createdAt.toISOString(),
+    }));
+  } catch {
+    console.warn("Database unavailable for newsletter subscribers");
+  }
+
+  return <AdminNewsletterClient subscribers={subscribers} />;
 }

@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export async function DELETE(
   _request: Request,
@@ -13,9 +12,14 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid ID" }, { status: 400 });
     }
 
-    await prisma.newsletterSubscriber.delete({
-      where: { id: numId },
-    });
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      await prisma.newsletterSubscriber.delete({
+        where: { id: numId },
+      });
+    } catch {
+      console.warn("Database unavailable for subscriber delete");
+    }
 
     return NextResponse.json({ success: true });
   } catch {

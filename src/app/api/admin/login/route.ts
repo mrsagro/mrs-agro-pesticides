@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { SignJWT } from "jose";
-import { prisma } from "@/lib/prisma";
 
 const JWT_SECRET = process.env.JWT_SECRET
   ? new TextEncoder().encode(process.env.JWT_SECRET)
   : null;
+
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
 
 export async function POST(request: Request) {
   try {
@@ -18,25 +20,6 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = await prisma.user.findUnique({
-      where: { username },
-    });
-
-    if (!user) {
-      return NextResponse.json(
-        { error: "Invalid credentials." },
-        { status: 401 }
-      );
-    }
-
-    const valid = await bcrypt.compare(password, user.password);
-    if (!valid) {
-      return NextResponse.json(
-        { error: "Invalid credentials." },
-        { status: 401 }
-      );
-    }
-
     if (!JWT_SECRET) {
       return NextResponse.json(
         { error: "Server configuration error." },
@@ -44,7 +27,29 @@ export async function POST(request: Request) {
       );
     }
 
-    const token = await new SignJWT({ userId: user.id, username: user.username })
+    if (!ADMIN_PASSWORD_HASH) {
+      return NextResponse.json(
+        { error: "Server configuration error: admin credentials not set." },
+        { status: 500 }
+      );
+    }
+
+    if (username !== ADMIN_USERNAME) {
+      return NextResponse.json(
+        { error: "Invalid credentials." },
+        { status: 401 }
+      );
+    }
+
+    const valid = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+    if (!valid) {
+      return NextResponse.json(
+        { error: "Invalid credentials." },
+        { status: 401 }
+      );
+    }
+
+    const token = await new SignJWT({ username })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("7d")
       .sign(JWT_SECRET);

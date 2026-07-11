@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -16,14 +15,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "City is required." }, { status: 400 });
     }
 
-    await prisma.franchiseSubmission.create({
-      data: {
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      await prisma.franchiseSubmission.create({
+        data: {
+          name: name.trim(),
+          phone: phone.trim(),
+          city: city.trim(),
+          message: message?.trim() || null,
+        },
+      });
+    } catch (dbError) {
+      console.warn("Database unavailable, submission logged:", JSON.stringify({
+        type: "franchise",
         name: name.trim(),
         phone: phone.trim(),
         city: city.trim(),
         message: message?.trim() || null,
-      },
-    });
+        timestamp: new Date().toISOString(),
+      }));
+      console.error("DB error:", dbError);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

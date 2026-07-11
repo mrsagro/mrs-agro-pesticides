@@ -1,4 +1,3 @@
-import { prisma } from "@/lib/prisma";
 import { products } from "@/lib/products";
 import AdminDashboardClient from "./AdminDashboardClient";
 
@@ -8,27 +7,58 @@ function getCategoriesCount(): number {
 }
 
 export default async function AdminDashboardPage() {
-  const totalSubmissions = await prisma.contactSubmission.count();
-  const totalFranchise = await prisma.franchiseSubmission.count();
-  const totalNewsletter = await prisma.newsletterSubscriber.count();
   const totalProducts = products.length;
   const totalCategories = getCategoriesCount();
-  const unreadSubmissions = await prisma.contactSubmission.count({
-    where: { status: "new" },
-  });
-  const unreadFranchise = await prisma.franchiseSubmission.count({
-    where: { status: "new" },
-  });
-  const totalUnread = unreadSubmissions + unreadFranchise;
+  let totalSubmissions = 0;
+  let totalFranchise = 0;
+  let totalNewsletter = 0;
+  let totalUnread = 0;
+  let recentSubmissions: { id: number; type: "contact"; name: string; email: string; message: string; status: string; createdAt: string }[] = [];
+  let recentFranchise: { id: number; type: "franchise"; name: string; phone: string; city: string; status: string; createdAt: string }[] = [];
 
-  const recentSubmissions = await prisma.contactSubmission.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 5,
-  });
-  const recentFranchise = await prisma.franchiseSubmission.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 5,
-  });
+  try {
+    const { prisma } = await import("@/lib/prisma");
+    totalSubmissions = await prisma.contactSubmission.count();
+    totalFranchise = await prisma.franchiseSubmission.count();
+    totalNewsletter = await prisma.newsletterSubscriber.count();
+    const unreadSubmissions = await prisma.contactSubmission.count({
+      where: { status: "new" },
+    });
+    const unreadFranchise = await prisma.franchiseSubmission.count({
+      where: { status: "new" },
+    });
+    totalUnread = unreadSubmissions + unreadFranchise;
+
+    const contactResults = await prisma.contactSubmission.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    });
+    recentSubmissions = contactResults.map((s) => ({
+      id: s.id,
+      type: "contact" as const,
+      name: s.name,
+      email: s.email,
+      message: s.message,
+      status: s.status,
+      createdAt: s.createdAt.toISOString(),
+    }));
+
+    const franchiseResults = await prisma.franchiseSubmission.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    });
+    recentFranchise = franchiseResults.map((s) => ({
+      id: s.id,
+      type: "franchise" as const,
+      name: s.name,
+      phone: s.phone,
+      city: s.city,
+      status: s.status,
+      createdAt: s.createdAt.toISOString(),
+    }));
+  } catch {
+    console.warn("Database unavailable for admin dashboard");
+  }
 
   return (
     <AdminDashboardClient
@@ -38,24 +68,8 @@ export default async function AdminDashboardPage() {
       totalFranchise={totalFranchise}
       totalNewsletter={totalNewsletter}
       totalUnread={totalUnread}
-      recentSubmissions={recentSubmissions.map((s) => ({
-        id: s.id,
-        type: "contact" as const,
-        name: s.name,
-        email: s.email,
-        message: s.message,
-        status: s.status,
-        createdAt: s.createdAt.toISOString(),
-      }))}
-      recentFranchise={recentFranchise.map((s) => ({
-        id: s.id,
-        type: "franchise" as const,
-        name: s.name,
-        phone: s.phone,
-        city: s.city,
-        status: s.status,
-        createdAt: s.createdAt.toISOString(),
-      }))}
+      recentSubmissions={recentSubmissions}
+      recentFranchise={recentFranchise}
     />
   );
 }

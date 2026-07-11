@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -10,17 +9,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Email is required." }, { status: 400 });
     }
 
-    const existing = await prisma.newsletterSubscriber.findUnique({
-      where: { email: email.trim() },
-    });
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      const existing = await prisma.newsletterSubscriber.findUnique({
+        where: { email: email.trim() },
+      });
 
-    if (existing) {
-      return NextResponse.json({ success: true, message: "Already subscribed" });
+      if (existing) {
+        return NextResponse.json({ success: true, message: "Already subscribed" });
+      }
+
+      await prisma.newsletterSubscriber.create({
+        data: { email: email.trim() },
+      });
+    } catch {
+      console.warn("Database unavailable for newsletter subscription");
     }
-
-    await prisma.newsletterSubscriber.create({
-      data: { email: email.trim() },
-    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

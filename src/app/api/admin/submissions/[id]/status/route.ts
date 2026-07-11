@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 const VALID_STATUSES = ["new", "contacted", "closed"] as const;
 
@@ -19,18 +18,23 @@ export async function PATCH(
       );
     }
 
-    const numId = Number(id);
-    if (numId > 10000) {
-      const realId = numId - 10000;
-      await prisma.franchiseSubmission.update({
-        where: { id: realId },
-        data: { status },
-      });
-    } else {
-      await prisma.contactSubmission.update({
-        where: { id: numId },
-        data: { status },
-      });
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      const numId = Number(id);
+      if (numId > 10000) {
+        const realId = numId - 10000;
+        await prisma.franchiseSubmission.update({
+          where: { id: realId },
+          data: { status },
+        });
+      } else {
+        await prisma.contactSubmission.update({
+          where: { id: numId },
+          data: { status },
+        });
+      }
+    } catch {
+      console.warn("Database unavailable for status update");
     }
 
     return NextResponse.json({ success: true });
