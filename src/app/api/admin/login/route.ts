@@ -6,8 +6,8 @@ const JWT_SECRET = process.env.JWT_SECRET
   ? new TextEncoder().encode(process.env.JWT_SECRET)
   : null;
 
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH;
+const ADMIN_USERNAME = (process.env.ADMIN_USERNAME || "admin").replace(/^"|"$/g, "");
+const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH?.replace(/^"|"$/g, "");
 
 export async function POST(request: Request) {
   try {
