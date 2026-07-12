@@ -580,4 +580,27 @@ export const products: Product[] = [
       "مٹی میں سلفر کی سطح کو بہتر بناتا ہے",
     ],
   },
+  {
+    id: "mr-11330",
+    slug: "mr-11330",
+    imageUrl: "/images/products/product25.jpeg",
+    nameEn: "MR-11330",
+    nameUr: "ایم آر-11330",
+    categoryEn: "Seed",
+    categoryUr: "بیج",
+    descriptionEn:
+      "A premium hybrid corn seed variety from M.R. Seeds, engineered to deliver exceptional germination rates, uniform plant growth, and outstanding yield potential in local soil conditions.",
+    descriptionUr:
+      "ایم آر سیڈز کا ایک اعلیٰ معیار کا ہائبرڈ مکئی کا بیج، جو مقامی مٹی میں غیر معمولی شرحِ اگاؤ، یکساں نشوونما اور شاندار پیداواری صلاحیت فراہم کرنے کے لیے تیار کیا گیا ہے۔",
+    highlightsEn: [
+      "High germination rates and early seedling vigor",
+      "Robust disease resistance and crop uniform performance",
+      "Packed in high-quality 10KG bags for maximum protection",
+    ],
+    highlightsUr: [
+      "غیر معمولی شرحِ اگاؤ اور پودوں کی ابتدائی توانائی",
+      "بیماریوں کے خلاف مضبوط مدافعت اور فصل کی یکساں کارکردگی",
+      "تازگی اور حفاظت کے لیے اعلیٰ معیار کے 10 کلوگرام بیگز میں دستیاب",
+    ],
+  },
 ];

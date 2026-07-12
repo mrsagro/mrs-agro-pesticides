@@ -304,6 +304,91 @@ export default function HomeContent() {
         </div>
       </section>
 
+      {/* ========== VIDEO REVIEWS SECTION ========== */}
+      <section className="py-20 lg:py-28 bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-brand-light-green/5 rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+          <FadeUp className="text-center max-w-2xl mx-auto mb-16">
+            <p className="text-sm font-bold tracking-[0.2em] uppercase text-brand-wheat-gold mb-2">
+              {isUrdu ? "کسانوں کے تاثرات" : "Farmer Testimonials"}
+            </p>
+            <h2 className="text-3xl lg:text-5xl font-bold text-brand-dark-green font-fraunces leading-tight">
+              {isUrdu ? "ہمارے کسانوں کی زبانی، حقیقی نتائج" : "Real Stories, Proven Results"}
+            </h2>
+            <p className="text-brand-charcoal/60 mt-4 leading-relaxed text-sm">
+              {isUrdu
+                ? "ملک بھر کے کسانوں سے براہ راست سنیں جو اپنی فصلوں کی حفاظت اور زیادہ پیداوار کے لیے ایم آر ایس ایگرو کیمیکلز پر بھروسہ کرتے ہیں۔"
+                : "Hear directly from the farmers who trust MRS Agro Chemicals to protect their crops and boost their seasonal yields."}
+            </p>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                videoUrl: "/images/WhatsApp Video 2026-07-12 at 11.42.17 AM.mp4",
+                farmerNameEn: "Chaudhary Nisar Ahmad",
+                farmerNameUr: "چوہدری نثار احمد",
+                locationEn: "Khanewal, Punjab",
+                locationUr: "خانیوال، پنجاب",
+                quoteEn: "Excellent crop protection results this season! The yield was significantly higher than last year.",
+                quoteUr: "اس سیزن میں فصلوں کے تحفظ کے بہترین نتائج ملے! پیداوار پچھلے سال کے مقابلے میں کافی زیادہ تھی۔",
+              },
+              {
+                videoUrl: "/images/WhatsApp Video 2026-07-12 at 11.42.17 AM (1).mp4",
+                farmerNameEn: "Mian Sajid Mahmood",
+                farmerNameUr: "میاں ساجد محمود",
+                locationEn: "Vehari, Punjab",
+                locationUr: "وہاڑی، پنجاب",
+                quoteEn: "Highly recommended products for pest control. The support from franchise team was outstanding.",
+                quoteUr: "کیڑوں کے کنٹرول کے لیے انتہائی تجویز کردہ مصنوعات۔ فرنچائز ٹیم کی طرف سے تعاون لاجواب تھا۔",
+              },
+              {
+                videoUrl: "/images/WhatsApp Video 2026-07-12 at 11.42.18 AM.mp4",
+                farmerNameEn: "Malik Muhammad Imran",
+                farmerNameUr: "ملک محمد عمران",
+                locationEn: "Sargodha, Punjab",
+                locationUr: "سرگودھا، پنجاب",
+                quoteEn: "Reliable formulations that deliver exactly what they promise. MRS Agro has earned my complete trust.",
+                quoteUr: "قابل اعتماد مصنوعات جو بالکل وہی نتائج دیتی ہیں جن کا وعدہ کیا گیا ہے۔ ایم آر ایس ایگرو نے میرا پورا بھروسہ جیتا ہے۔",
+              },
+            ].map((review, idx) => (
+              <FadeUp key={idx} delay={idx * 0.15}>
+                <div className="group relative flex flex-col h-full rounded-3xl bg-gradient-to-b from-white to-brand-cream border border-brand-dark-green/5 p-6 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(27,94,32,0.15)] hover:border-brand-dark-green/10 hover:-translate-y-1">
+                  <div className="relative aspect-[9/16] max-h-[420px] rounded-2xl overflow-hidden bg-black mb-6 border border-brand-dark-green/5 shadow-inner">
+                    <video
+                      src={review.videoUrl}
+                      className="w-full h-full object-cover"
+                      controls
+                      playsInline
+                      preload="metadata"
+                    />
+                  </div>
+                  <div className="flex items-center gap-1 text-brand-orange mb-3">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <svg key={s} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-brand-charcoal/80 leading-relaxed text-sm mb-4 italic font-light">
+                    {isUrdu ? `"${review.quoteUr}"` : `"${review.quoteEn}"`}
+                  </p>
+                  <div className="mt-auto border-t border-brand-dark-green/5 pt-4">
+                    <h4 className="font-bold text-brand-dark-green text-base">
+                      {isUrdu ? review.farmerNameUr : review.farmerNameEn}
+                    </h4>
+                    <p className="text-xs text-brand-charcoal/40 font-medium">
+                      {isUrdu ? review.locationUr : review.locationEn}
+                    </p>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ========== CTA BANNER ========== */}
       <section className="py-20 bg-brand-cream">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">

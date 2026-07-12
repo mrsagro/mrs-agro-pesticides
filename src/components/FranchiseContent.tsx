@@ -50,6 +50,14 @@ export default function FranchiseContent() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="text-brand-wheat-gold text-xl md:text-2xl font-bold mt-4 tracking-wide font-fraunces font-urdu-heading"
+          >
+            {isUrdu ? "بلندی کی طرف گامزن" : "Rising Towards New Heights"}
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-white/50 text-lg max-w-2xl mx-auto mt-6 leading-relaxed"
           >
